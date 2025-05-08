@@ -1,0 +1,307 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@layer base {
+  :root {
+    /* Primary Colors */
+    --color-primary-50: 236 253 245;
+    --color-primary-100: 209 250 229;
+    --color-primary-200: 167 243 208;
+    --color-primary-300: 110 231 183;
+    --color-primary-400: 52 211 153;
+    --color-primary-500: 16 185 129;
+    --color-primary-600: 5 150 105;
+    --color-primary-700: 4 120 87;
+    --color-primary-800: 6 95 70;
+    --color-primary-900: 6 78 59;
+
+    /* Secondary Colors */
+    --color-secondary-50: 249 250 251;
+    --color-secondary-100: 243 244 246;
+    --color-secondary-200: 229 231 235;
+    --color-secondary-300: 209 213 219;
+    --color-secondary-400: 156 163 175;
+    --color-secondary-500: 107 114 128;
+    --color-secondary-600: 75 85 99;
+    --color-secondary-700: 55 65 81;
+    --color-secondary-800: 31 41 55;
+    --color-secondary-900: 17 24 39;
+
+    /* Accent Colors */
+    --color-accent-1-50: 239 246 255;
+    --color-accent-1-100: 219 234 254;
+    --color-accent-1-200: 191 219 254;
+    --color-accent-1-300: 147 197 253;
+    --color-accent-1-400: 96 165 250;
+    --color-accent-1-500: 59 130 246;
+    --color-accent-1-600: 37 99 235;
+    --color-accent-1-700: 29 78 216;
+    --color-accent-1-800: 30 64 175;
+    --color-accent-1-900: 30 58 138;
+
+    --color-accent-2-50: 245 243 255;
+    --color-accent-2-100: 237 233 254;
+    --color-accent-2-200: 221 214 254;
+    --color-accent-2-300: 196 181 253;
+    --color-accent-2-400: 167 139 250;
+    --color-accent-2-500: 139 92 246;
+    --color-accent-2-600: 124 58 237;
+    --color-accent-2-700: 109 40 217;
+    --color-accent-2-800: 91 33 182;
+    --color-accent-2-900: 76 29 149;
+
+    /* Background Colors */
+    --color-background: 17 24 39;
+    --color-background-light: 31 41 55;
+    --color-background-dark: 11 15 25;
+
+    /* Text Colors */
+    --color-text-foreground: 249 250 251;
+    --color-text-muted: 156 163 175;
+    --color-text-primary: 16 185 129;
+    --color-text-secondary: 107 114 128;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+  }
+}
+
+@layer components {
+  /* Gradient Text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[rgb(59,130,246)] via-[rgb(16,185,129)]/80 to-[rgb(16,185,129)]/60;
+  }
+
+  .gradient-text-accent {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[rgb(59,130,246)] via-[rgb(139,92,246)] to-[rgb(16,185,129)];
+  }
+
+  /* Gradient Backgrounds */
+  .gradient-bg-primary {
+    @apply bg-gradient-to-br from-[rgb(59,130,246)]/10 via-[rgb(107,114,128)]/10 to-[rgb(16,185,129)]/5;
+  }
+
+  .gradient-bg-accent {
+    @apply bg-gradient-to-br from-[rgb(59,130,246)]/10 via-[rgb(139,92,246)]/10 to-[rgb(16,185,129)]/5;
+  }
+
+  .gradient-bg-dark {
+    @apply bg-gradient-to-br from-[rgb(11,15,25)] via-[rgb(17,24,39)] to-[rgb(31,41,55)];
+  }
+
+  /* Glass Effect */
+  .glass-effect {
+    @apply bg-[rgb(107,114,128)]/50 backdrop-blur-sm border border-[rgb(249,250,251)]/5;
+  }
+
+  .glass-effect-hover {
+    @apply hover:bg-[rgb(107,114,128)]/70 hover:border-[rgb(249,250,251)]/10 transition-all duration-300;
+  }
+
+  /* Button Styles */
+  .btn-primary {
+    @apply px-8 py-4 rounded-xl font-semibold bg-gradient-to-r from-[rgb(59,130,246)] via-[rgb(16,185,129)]/90 to-[rgb(16,185,129)]/80 text-[rgb(222.2,47.4%,11.2%)] hover:from-[rgb(16,185,129)]/90 hover:via-[rgb(16,185,129)]/80 hover:to-[rgb(16,185,129)]/70 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg hover:shadow-[rgb(16,185,129)]/20;
+  }
+
+  .btn-secondary {
+    @apply px-8 py-4 rounded-xl font-semibold bg-gradient-to-r from-[rgb(107,114,128)]/50 to-[rgb(107,114,128)]/30 backdrop-blur-sm text-[rgb(249,250,251)] hover:from-[rgb(107,114,128)]/70 hover:to-[rgb(107,114,128)]/50 transition-all duration-300 transform hover:scale-[1.02] border border-[rgb(249,250,251)]/5;
+  }
+
+  /* Card Styles */
+  .card {
+    @apply relative bg-gradient-to-br from-[rgb(107,114,128)]/50 to-[rgb(107,114,128)]/30 backdrop-blur-sm rounded-3xl shadow-xl p-8 border border-[rgb(249,250,251)]/5 overflow-hidden;
+  }
+
+  .card-hover {
+    @apply hover:from-[rgb(107,114,128)]/70 hover:to-[rgb(107,114,128)]/50 hover:border-[rgb(249,250,251)]/10 transition-all duration-300;
+  }
+
+  /* Input Styles */
+  .input {
+    @apply w-full px-4 py-3 rounded-xl bg-[rgb(17,24,39)]/50 border border-[rgb(249,250,251)]/10 text-[rgb(249,250,251)] placeholder:text-[rgb(249,250,251)]/50 focus:outline-none focus:ring-2 focus:ring-[rgb(16,185,129)]/50 transition-all duration-200;
+  }
+
+  /* Icon Container */
+  .icon-container {
+    @apply p-3 rounded-2xl bg-gradient-to-br from-[rgb(59,130,246)]/20 to-[rgb(16,185,129)]/10 group-hover:from-[rgb(59,130,246)]/30 group-hover:to-[rgb(16,185,129)]/20 transition-colors duration-200;
+  }
+
+  /* Social Links */
+  .social-link {
+    @apply p-3 rounded-2xl bg-gradient-to-br from-[rgb(59,130,246)]/20 to-[rgb(16,185,129)]/10 hover:from-[rgb(59,130,246)]/30 hover:to-[rgb(16,185,129)]/20 text-[rgb(249,250,251)]/60 hover:text-[rgb(16,185,129)] transition-all duration-200;
+  }
+}
+
+/* Custom Animations - Optimized */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes shine {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Use will-change for hardware acceleration on animations that need it */
+.animate-float {
+  animation: float 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-play-state: paused;
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-play-state: paused;
+}
+
+.animate-shine {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shine 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-play-state: paused;
+}
+
+/* Only play animations when in viewport for performance */
+.in-viewport .animate-float,
+.in-viewport .animate-pulse-slow,
+.in-viewport .animate-shine {
+  animation-play-state: running;
+}
+
+/* Enhanced Transition Classes */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+.transition-colors {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Hover Effects */
+.hover-scale {
+  transform: scale(1);
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+.hover-lift {
+  transform: translateY(0);
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* Glass Effect Transitions */
+.glass-effect {
+  transition: background-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-effect-hover {
+  transition: background-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Button Transitions */
+.btn-primary, .btn-secondary {
+  transition: background-color 200ms cubic-bezier(0.4, 0, 0.2, 1), transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Card Transitions */
+.card, .card-hover {
+  transition: background-color 200ms cubic-bezier(0.4, 0, 0.2, 1), transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Input Transitions */
+.input {
+  transition: border-color 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Social Link Transitions */
+.social-link {
+  transition: color 200ms cubic-bezier(0.4, 0, 0.2, 1), background-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Scrollbar Transitions */
+::-webkit-scrollbar-thumb {
+  transition: background-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Focus Transitions */
+*:focus-visible {
+  transition: outline 200ms cubic-bezier(0.4, 0, 0.2, 1), ring 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-[rgb(11,15,25)];
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-[rgb(16,185,129)]/20 rounded-full hover:bg-[rgb(16,185,129)]/30 transition-colors duration-200;
+}
+
+/* Selection Styling */
+::selection {
+  @apply bg-[rgb(16,185,129)]/20 text-[rgb(249,250,251)];
+}
+
+/* Focus Styles */
+*:focus-visible {
+  @apply outline-none ring-2 ring-[rgb(16,185,129)]/50 ring-offset-2 ring-offset-[rgb(17,24,39)];
+}
