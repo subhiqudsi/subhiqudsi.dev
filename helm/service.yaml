@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nuxtjs-service
+  namespace: default
+spec:
+  selector:
+    app: nuxtjs-app
+  ports:
+  - port: 80
+    targetPort: 3000
+  type: ClusterIP
