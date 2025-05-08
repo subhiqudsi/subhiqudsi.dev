@@ -1,37 +1,17 @@
-# Base on Node.js LTS
-FROM node:22-alpine AS build
+# Use a lightweight Node image
+FROM node:18-alpine
 
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Install a lightweight static server
+RUN npm install -g serve
 
-# Install dependencies
-RUN npm ci
+# Copy generated static files into the container
+COPY ./.output/public /app
 
-# Copy source code
-COPY . .
-
-# Build the Nuxt.js application
-RUN npm run build
-
-# Production stage
-FROM node:18-alpine
-
-WORKDIR /app
-
-# Copy built application from build stage
-COPY --from=build /app/.output ./.output
-COPY --from=build /app/package.json ./package.json
-
-# Set environment variables
-ENV NODE_ENV=production
-ENV HOST=0.0.0.0
-ENV PORT=3000
-
-# Expose port
+# Expose the port 'serve' uses
 EXPOSE 3000
 
-# Start the application
-CMD ["node", ".output/server/index.mjs"]
+# Serve the static content
+CMD ["serve", "-s", ".", "-l", "3000"]
