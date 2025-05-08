@@ -23,14 +23,6 @@ export default defineNuxtConfig({
     build: {
       minify: true,
       cssMinify: true,
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            'ui': ['@nuxt/ui'],
-            'icons': ['@nuxt/icon']
-          }
-        }
-      }
     }
   },
 
