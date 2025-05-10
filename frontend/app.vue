@@ -31,7 +31,7 @@ const navLinks = [
             <!-- Logo -->
             <div class="flex-shrink-0 flex items-center">
               <NuxtLink to="/" class="flex items-center space-x-2">
-                <Icon name="heroicons:cube-transparent" class="h-8 w-8 text-cyan-400" />
+                <Icon name="mdi:brain" class="h-8 w-8 text-cyan-400" />
                 <span class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">
                   SubhiQudsi.dev
                 </span>
@@ -146,24 +146,29 @@ const navLinks = [
             <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Services</h3>
             <ul class="mt-4 space-y-3">
               <li>
-                <a href="#" class="text-base text-gray-300 hover:text-cyan-400 transition-colors">
-                  Software Development
-                </a>
+                <NuxtLink to="/services" class="text-base text-gray-300 hover:text-cyan-400 transition-colors">
+                  Full-Stack Development
+                </NuxtLink>
               </li>
               <li>
-                <a href="#" class="text-base text-gray-300 hover:text-cyan-400 transition-colors">
+                <NuxtLink to="/services" class="text-base text-gray-300 hover:text-cyan-400 transition-colors">
                   Team Enablement
-                </a>
+                </NuxtLink>
               </li>
               <li>
-                <a href="#" class="text-base text-gray-300 hover:text-cyan-400 transition-colors">
-                  Team Assessment
-                </a>
+                <NuxtLink to="/services" class="text-base text-gray-300 hover:text-cyan-400 transition-colors">
+                  AI-Driven Architecture
+                </NuxtLink>
               </li>
               <li>
-                <a href="#" class="text-base text-gray-300 hover:text-cyan-400 transition-colors">
+                <NuxtLink to="/services" class="text-base text-gray-300 hover:text-cyan-400 transition-colors">
                   Cloud Infrastructure
-                </a>
+                </NuxtLink>
+              </li>
+              <li>
+                <NuxtLink to="/services" class="text-base text-gray-300 hover:text-cyan-400 transition-colors">
+                  Partner Services
+                </NuxtLink>
               </li>
             </ul>
           </div>

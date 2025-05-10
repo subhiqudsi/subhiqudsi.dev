@@ -39,15 +39,57 @@ const features = [
   }
 ]
 
-const logos = [
-  { name: 'TensorFlow', icon: 'logos:tensorflow' },
-  { name: 'Python', icon: 'logos:python' },
-  { name: 'React', icon: 'logos:react' },
-  { name: 'Vue', icon: 'logos:vue' },
-  { name: 'Node.js', icon: 'logos:nodejs-icon' },
-  { name: 'AWS', icon: 'logos:aws' },
-  { name: 'Azure', icon: 'logos:microsoft-azure' },
-  { name: 'Kubernetes', icon: 'logos:kubernetes' }
+const techCategories = [
+  {
+    name: 'Languages',
+    items: [
+      { name: 'Python', icon: 'logos:python' },
+      { name: 'JavaScript', icon: 'logos:javascript' },
+      { name: 'TypeScript', icon: 'logos:typescript-icon' }
+    ]
+  },
+  {
+    name: 'Frameworks & Libraries',
+    items: [
+      { name: 'Django', icon: 'logos:django' },
+      { name: 'FastAPI', icon: 'logos:fastapi' },
+      { name: 'Vue.js', icon: 'logos:vue' },
+      { name: 'Angular', icon: 'logos:angular-icon' },
+      { name: 'jQuery', icon: 'logos:jquery' },
+      { name: 'NestJS', icon: 'logos:nestjs' }
+    ]
+  },
+  {
+    name: 'Databases',
+    items: [
+      { name: 'MySQL', icon: 'logos:mysql' },
+      { name: 'PostgreSQL', icon: 'logos:postgresql' },
+      { name: 'MongoDB', icon: 'logos:mongodb' }
+    ]
+  },
+  {
+    name: 'DevOps & Infrastructure',
+    items: [
+      { name: 'Docker', icon: 'logos:docker-icon' },
+      { name: 'Kubernetes', icon: 'logos:kubernetes' },
+      { name: 'Helm', icon: 'logos:helm' },
+      { name: 'Git', icon: 'logos:git-icon' }
+    ]
+  },
+  {
+    name: 'Cloud Providers',
+    items: [
+      { name: 'AWS', icon: 'logos:aws' },
+      { name: 'GCP', icon: 'logos:google-cloud' }
+    ]
+  },
+  {
+    name: 'Data Processing',
+    items: [
+      { name: 'Kafka', icon: 'logos:kafka-icon' },
+      { name: 'Elasticsearch', icon: 'logos:elasticsearch' }
+    ]
+  }
 ]
 </script>
 
@@ -113,20 +155,6 @@ const logos = [
         </div>
       </div>
 
-      <!-- Technologies & Stack Section -->
-      <div class="py-12 bg-gradient-to-r from-gray-900/60 to-gray-800/60 backdrop-blur-sm border-y border-cyan-500/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="text-center mb-8">
-            <h2 class="text-2xl font-semibold text-white">My Technology Stack</h2>
-          </div>
-          <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12">
-            <div v-for="(logo, index) in logos" :key="index" class="flex items-center justify-center h-12 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-              <Icon :name="logo.icon" class="h-10 w-auto" />
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- Features Section -->
       <div class="py-20 sm:py-28">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -154,6 +182,38 @@ const logos = [
           </div>
         </div>
       </div>
+
+
+      <!-- Technologies & Stack Section -->
+      <div class="py-16 bg-gradient-to-r from-gray-900/60 to-gray-800/60 backdrop-blur-sm border-y border-cyan-500/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-white mb-3">My Technology Stack</h2>
+            <p class="text-gray-300 max-w-3xl mx-auto">Experienced with a diverse range of technologies to build robust, scalable solutions</p>
+          </div>
+          
+          <div class="space-y-10">
+            <div v-for="(category, categoryIndex) in techCategories" :key="categoryIndex">
+              <div class="mb-5">
+                <h3 class="text-xl font-semibold text-cyan-400 mb-1">{{ category.name }}</h3>
+                <div class="w-16 h-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full"></div>
+              </div>
+              
+              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <div v-for="(item, itemIndex) in category.items" :key="categoryIndex +'/'+ itemIndex" class="group">
+                  <div class="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-800/40 backdrop-blur-sm border border-cyan-500/10 hover:border-cyan-500/30 hover:bg-gray-800/60 transition-all duration-300 h-full">
+                    <div class="w-12 h-12 mb-3 flex items-center justify-center grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300">
+                      <Icon :name="item.icon" class="h-10 w-10" />
+                    </div>
+                    <span class="text-xs text-center text-gray-400 group-hover:text-cyan-400 transition-colors duration-300">{{ item.name }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- Key Benefits Section -->
       <div class="py-16 bg-gradient-to-r from-gray-900/60 to-gray-800/60 backdrop-blur-sm border-y border-cyan-500/10">

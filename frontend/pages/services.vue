@@ -132,6 +132,42 @@ const methodologies = [
     description: 'Smooth deployment, knowledge transfer, and ongoing enhancement'
   }
 ]
+
+const partnerServices = [
+  {
+    icon: 'heroicons:document-chart-bar',
+    title: 'Business Analysis',
+    description: 'Comprehensive business analysis to align technology solutions with your strategic goals',
+    features: [
+      'Requirements Engineering & Documentation',
+      'Process Mapping & Optimization',
+      'Stakeholder Engagement & Communication',
+      'Solution Validation & Success Metrics'
+    ]
+  },
+  {
+    icon: 'heroicons:clipboard-document-check',
+    title: 'Large Project Management',
+    description: 'Expert management of complex, large-scale technology initiatives',
+    features: [
+      'Program & Portfolio Management',
+      'Resource Allocation & Budgeting',
+      'Risk Management & Mitigation',
+      'Cross-functional Team Coordination'
+    ]
+  },
+  {
+    icon: 'heroicons:paint-brush',
+    title: 'UI/UX Design',
+    description: 'User-centered design services to create intuitive, engaging digital experiences',
+    features: [
+      'User Research & Persona Development',
+      'Information Architecture & Wireframing',
+      'Interactive Prototyping & Usability Testing',
+      'Design System Creation & Implementation'
+    ]
+  }
+]
 </script>
 
 <template>
@@ -231,7 +267,7 @@ const methodologies = [
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               <div v-for="(methodology, index) in methodologies" :key="index" class="relative">
-                <div class="absolute -left-4 -top-4 w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold text-lg">
+                <div class="z-2 absolute -left-4 -top-4 w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold text-lg">
                   {{ index + 1 }}
                 </div>
                 <div class="bg-gray-800/40 backdrop-blur-sm rounded-xl p-6 border border-cyan-500/10 h-full">
@@ -281,6 +317,63 @@ const methodologies = [
                           <span>{{ feature }}</span>
                         </li>
                       </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ScrollAnimation>
+          </div>
+        </div>
+        
+        <!-- Partner Services -->
+        <div class="mb-24">
+          <ScrollAnimation direction="down" :delay="200">
+            <div class="text-center mb-12">
+              <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-900/30 text-purple-400 mb-4">
+                <Icon name="heroicons:user-group" class="w-4 h-4 mr-2" />
+                Expert Network
+              </div>
+              <h2 class="text-3xl font-bold text-white mb-4">Partner Services</h2>
+              <p class="text-gray-300 max-w-3xl mx-auto">
+                Additional specialized services provided through our trusted partner network
+              </p>
+            </div>
+          </ScrollAnimation>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <ScrollAnimation 
+              v-for="(service, index) in partnerServices" 
+              :key="index"
+              direction="up"
+              :delay="150 * (index + 1)"
+            >
+              <div class="relative group h-full">
+                <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-indigo-600/5 rounded-xl group-hover:from-purple-500/10 group-hover:to-indigo-600/10 transition-all duration-300"></div>
+                <div class="relative bg-gray-800/40 backdrop-blur-sm rounded-xl p-6 border border-purple-500/10 group-hover:border-purple-500/20 h-full transition-all duration-300">
+                  <div class="flex flex-col">
+                    <div class="w-14 h-14 bg-gradient-to-br from-purple-500/20 to-indigo-600/20 rounded-lg flex items-center justify-center mb-5 group-hover:from-purple-500/30 group-hover:to-indigo-600/30 transition-colors duration-300">
+                      <Icon :name="service.icon" class="w-7 h-7 text-purple-400" />
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-3">{{ service.title }}</h3>
+                    <p class="text-gray-300 mb-5">{{ service.description }}</p>
+                    <ul class="space-y-2">
+                      <li 
+                        v-for="(feature, featureIndex) in service.features" 
+                        :key="featureIndex"
+                        class="flex items-start text-gray-300 group-hover:text-white transition-colors duration-200"
+                      >
+                        <Icon name="heroicons:check" class="w-4 h-4 text-purple-400 mr-2 mt-1 flex-shrink-0" />
+                        <span>{{ feature }}</span>
+                      </li>
+                    </ul>
+                    <div class="mt-auto pt-6">
+                      <NuxtLink
+                        to="/contact"
+                        class="inline-flex items-center text-purple-400 hover:text-purple-300 font-medium group-hover:translate-x-1 transition-all duration-200"
+                      >
+                        Learn More
+                        <Icon name="heroicons:arrow-right" class="w-5 h-5 ml-1" />
+                      </NuxtLink>
                     </div>
                   </div>
                 </div>

@@ -6,13 +6,15 @@ useHead({
   ]
 })
 
-const caseStudies = [
+// Jobs under Sitech.me
+const sitechProjects = [
   {
     id: 'delmonti-prices-prediction',
     title: 'Delmonti Prices Prediction',
     subtitle: 'Secure Middleware for Data Science Team',
     logo: 'heroicons:chart-bar',
     tags: ['Django', 'API', 'Caching', 'Middleware'],
+    employer: 'Sitech.me',
     highlights: [
       'Secure middleware between model APIs and frontend',
       'Implemented efficient caching strategy',
@@ -36,6 +38,7 @@ const caseStudies = [
     subtitle: 'Project Inception and Technical Leadership',
     logo: 'heroicons:truck',
     tags: ['NestJS', 'Kubernetes', 'Docker', 'Vue.js'],
+    employer: 'Sitech.me',
     highlights: [
       'Technical interviewing and onboarding of engineers',
       'Initial flow creation and technical vision setting',
@@ -59,6 +62,7 @@ const caseStudies = [
     subtitle: 'Video Content Collection Pipeline',
     logo: 'heroicons:video-camera',
     tags: ['Data Engineering', 'Twitch API', 'YouTube API', 'Pipeline'],
+    employer: 'Sitech.me',
     highlights: [
       'Led development of content collection pipeline',
       'Integrated with Twitch and YouTube APIs',
@@ -82,6 +86,7 @@ const caseStudies = [
     subtitle: 'OpenedX Legacy Maintenance',
     logo: 'heroicons:academic-cap',
     tags: ['OpenedX', 'Legacy Systems', 'Microservices', 'Maintenance'],
+    employer: 'Sitech.me',
     highlights: [
       'Maintenance of legacy OpenedX application',
       'Microservices architecture management',
@@ -100,34 +105,12 @@ const caseStudies = [
     }
   },
   {
-    id: 'omniops-devops',
-    title: 'OmniOps DevOps Dashboard',
-    subtitle: 'GPU Resource Allocation for Multi-tenancy',
-    logo: 'heroicons:server',
-    tags: ['DevOps', 'Dashboard', 'GPU Allocation', 'Multi-tenant'],
-    highlights: [
-      'DevOps dashboard for GPU allocation',
-      'Multi-tenant architecture design',
-      'Resource optimization system',
-      'Project inception and architecture'
-    ],
-    summary: 'Created a DevOps dashboard for a multi-tenant structure focused on efficient GPU allocation.',
-    challenges: 'As a freelance independent contractor during project inception, I needed to design a system that could efficiently allocate GPU resources across multiple tenants in a fair and optimized manner.',
-    solution: 'I architected and developed a DevOps dashboard that managed GPU allocation in a multi-tenant environment. The solution provided visibility into resource usage and implemented intelligent allocation algorithms to maximize efficiency.',
-    results: 'The dashboard enabled efficient sharing of expensive GPU resources across multiple clients, reducing costs while maintaining performance for all users.',
-    image: 'https://images.unsplash.com/photo-1563770660941-20978e870e26?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-    testimonial: {
-      quote: "Subhi's dashboard revolutionized how we allocate GPU resources. The multi-tenant design perfectly balanced our needs for resource sharing and isolation.",
-      author: "David Chen",
-      role: "VP of Engineering"
-    }
-  },
-  {
     id: 'embassy-fueling-tracking',
     title: 'Embassy Fueling Tracking',
     subtitle: 'Monolithic Application for Fuel Management',
     logo: 'heroicons:truck',
     tags: ['Docker', 'Django', 'CSS3', 'jQuery'],
+    employer: 'Sitech.me',
     highlights: [
       'Efficient tracking of embassy fleet fueling operations',
       'Streamlined reporting and analytics dashboard',
@@ -151,6 +134,7 @@ const caseStudies = [
     subtitle: 'Data-Driven Market Intelligence Platform',
     logo: 'heroicons:chart-bar',
     tags: ['Docker', 'Django', 'CSS3', 'jQuery', 'Data Analytics'],
+    employer: 'Sitech.me',
     highlights: [
       'Comprehensive pharmaceutical market data analysis',
       'Interactive visualization dashboards',
@@ -174,6 +158,7 @@ const caseStudies = [
     subtitle: 'Cross-Platform Digital Banking Solution',
     logo: 'heroicons:banknotes',
     tags: ['Docker', 'Django', 'DRF', 'React', 'React Native'],
+    employer: 'Sitech.me',
     highlights: [
       'Streamlined account creation process',
       'Cross-platform solution (web and mobile)',
@@ -197,6 +182,7 @@ const caseStudies = [
     subtitle: 'Large-Scale E-Commerce and Auction Platform',
     logo: 'heroicons:shopping-bag',
     tags: ['Docker', 'Django', 'DRF', 'jQuery', 'K8s', 'AWS', 'Helm'],
+    employer: 'Sitech.me',
     highlights: [
       'Real-time auction system for premium date fruits',
       'Integrated payment and fulfillment system',
@@ -220,6 +206,7 @@ const caseStudies = [
     subtitle: 'Centralized Gaming Authentication and Marketplace',
     logo: 'heroicons:puzzle-piece',
     tags: ['Docker', 'Django', 'DRF', 'jQuery', 'Angular2', 'K8s', 'Helm', 'AWS'],
+    employer: 'Sitech.me',
     highlights: [
       'Centralized OAuth2 authentication for multiple games',
       'Custom Unity SDK development',
@@ -237,7 +224,65 @@ const caseStudies = [
       role: "Product Director, Tamatem Games"
     }
   }
-]
+];
+
+// Jobs under subhiqudsi.dev (Independent)
+const subhiqudsiProjects = [
+  {
+    id: 'stock-market-simulator',
+    title: 'Stock Market Trade Simulator',
+    subtitle: 'Interactive Trading Platform with Alpaca API',
+    logo: 'heroicons:chart-bar',
+    tags: ['FastAPI', 'Alpaca API', 'Vue.js', 'Docker', 'WebSockets'],
+    employer: 'subhiqudsi.dev',
+    highlights: [
+      'Real-time stock data integration with Alpaca API',
+      'Paper trading simulation with realistic market conditions',
+      'Interactive dashboard with performance analytics',
+      'WebSocket implementation for live market updates'
+    ],
+    summary: 'Developed a comprehensive stock market simulator that allows users to practice trading strategies in a risk-free environment using real market data.',
+    challenges: 'Creating a realistic trading environment that accurately reflects market conditions without exposing users to financial risk. The platform needed to handle real-time data streams while providing an intuitive interface for novice traders.',
+    solution: 'I built a FastAPI backend that integrates with the Alpaca API for market data and paper trading functionality. The system incorporates WebSockets for real-time updates and a Vue.js frontend with interactive charts and analytics. The entire stack is containerized with Docker for easy deployment and scaling.',
+    results: 'The simulator provides users with a realistic trading experience, complete with market data, portfolio tracking, and performance analytics. Users can test different trading strategies and learn market dynamics without risking real capital.',
+    image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    testimonial: {
+      quote: "The stock market simulator Subhi built has been instrumental in our trading education program. Students can experiment with different strategies and see real-world results without the anxiety of losing money.",
+      author: "Megan Chen",
+      role: "Financial Education Director"
+    }
+  },
+  {
+    id: 'omniops-devops',
+    title: 'OmniOps DevOps Dashboard',
+    subtitle: 'GPU Resource Allocation for Multi-tenancy',
+    logo: 'heroicons:server',
+    tags: ['DevOps', 'Dashboard', 'GPU Allocation', 'Multi-tenant', 'FastAPI'],
+    employer: 'subhiqudsi.dev',
+    highlights: [
+      'DevOps dashboard for GPU allocation',
+      'Multi-tenant architecture design',
+      'Resource optimization system',
+      'Project inception and architecture'
+    ],
+    summary: 'Created a DevOps dashboard for a multi-tenant structure focused on efficient GPU allocation.',
+    challenges: 'As an independent contractor during project inception, I needed to design a system that could efficiently allocate GPU resources across multiple tenants in a fair and optimized manner.',
+    solution: 'I architected and developed a DevOps dashboard that managed GPU allocation in a multi-tenant environment. The solution provided visibility into resource usage and implemented intelligent allocation algorithms to maximize efficiency.',
+    results: 'The dashboard enabled efficient sharing of expensive GPU resources across multiple clients, reducing costs while maintaining performance for all users.',
+    image: 'https://images.unsplash.com/photo-1563770660941-20978e870e26?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    testimonial: {
+      quote: "Subhi's dashboard revolutionized how we allocate GPU resources. The multi-tenant design perfectly balanced our needs for resource sharing and isolation.",
+      author: "David Chen",
+      role: "VP of Engineering"
+    }
+  }
+];
+
+// Combined case studies for display
+const caseStudies = [
+  ...subhiqudsiProjects, // Show independent work first
+  ...sitechProjects
+];
 
 const scrollToCaseStudy = (id) => {
   const element = document.getElementById(id)
@@ -318,17 +363,33 @@ const scrollToCaseStudy = (id) => {
                     loading="lazy"
                   />
                   <div class="absolute bottom-0 left-0 right-0 p-8 z-20">
-                    <div class="flex flex-wrap gap-2 mb-4">
-                      <span 
-                        v-for="tag in study.tags" 
-                        :key="tag"
-                        class="px-3 py-1 bg-cyan-900/30 text-cyan-400 text-xs font-medium rounded-full"
-                      >
-                        {{ tag }}
-                      </span>
+                    <div class="flex justify-between items-end">
+                      <div class="flex-1">
+                        <div class="flex flex-wrap gap-2 mb-4">
+                          <span 
+                            v-for="tag in study.tags" 
+                            :key="tag"
+                            class="px-3 py-1 bg-cyan-900/30 text-cyan-400 text-xs font-medium rounded-full"
+                          >
+                            {{ tag }}
+                          </span>
+                        </div>
+                        <h2 class="text-3xl font-bold text-white mb-2">{{ study.title }}</h2>
+                        <p class="text-xl text-gray-300">{{ study.subtitle }}</p>
+                      </div>
+                      <div>
+                        <span
+                          :class="[
+                            'px-4 py-2 rounded-lg text-sm font-medium',
+                            study.employer === 'subhiqudsi.dev' 
+                              ? 'bg-purple-900/30 text-purple-400 border border-purple-500/30' 
+                              : 'bg-blue-900/30 text-blue-400 border border-blue-500/30'
+                          ]"
+                        >
+                          {{ study.employer }}
+                        </span>
+                      </div>
                     </div>
-                    <h2 class="text-3xl font-bold text-white mb-2">{{ study.title }}</h2>
-                    <p class="text-xl text-gray-300">{{ study.subtitle }}</p>
                   </div>
                 </div>
                 

@@ -12,14 +12,28 @@ const form = reactive({
   company: '',
   email: '',
   phone: '',
-  projectType: '',
+  teamSize: '',
   budget: '',
   message: '',
   services: {
+    // Primary Services
+    fullStackDevelopment: false,
+    teamEnablement: false,
     cloudInfrastructure: false,
-    kubernetes: false,
+    
+    // Additional Services
+    aiDrivenArchitecture: false,
     devopsCicd: false,
-    microservices: false,
+    ctoService: false,
+    technicalInterviews: false,
+    technicalMentoring: false,
+    toolchainImplementation: false,
+    
+    // Partner Services
+    businessAnalysis: false,
+    projectManagement: false,
+    uiuxDesign: false,
+    
     other: false
   }
 })
@@ -27,25 +41,20 @@ const form = reactive({
 const isSubmitting = ref(false)
 const submitStatus = ref(null)
 
-const projectTypes = [
-  { value: '', label: 'Select project type', disabled: true },
-  { value: 'cloud-migration', label: 'Cloud Migration' },
-  { value: 'infrastructure-optimization', label: 'Infrastructure Optimization' },
-  { value: 'devops-implementation', label: 'DevOps Implementation' },
-  { value: 'kubernetes-deployment', label: 'Kubernetes Deployment' },
-  { value: 'ci-cd-pipeline', label: 'CI/CD Pipeline Setup' },
-  { value: 'security-compliance', label: 'Security & Compliance' },
-  { value: 'consultation', label: 'Consultation' },
-  { value: 'other', label: 'Other' }
+const teamSizes = [
+  { value: '', label: 'Select team size', disabled: true },
+  { value: 'no-team', label: 'No internal team' },
+  { value: '1-3', label: '1–3 engineers' },
+  { value: '4-10', label: '4–10 engineers' },
+  { value: '11-25', label: '11–25 engineers' },
+  { value: '26+', label: '26+ engineers' }
 ]
 
 const budgetRanges = [
   { value: '', label: 'Select budget range', disabled: true },
-  { value: 'under-25k', label: 'Under $25,000' },
-  { value: '25k-50k', label: 'S25,000 - $50,000' },
-  { value: '50k-100k', label: '$50,000 - $100,000' },
-  { value: '100k-250k', label: '$100,000 - $250,000' },
-  { value: 'over-250k', label: 'Over $250,000' },
+  { value: '2k-5k', label: 'S2,000 - $5,000' },
+  { value: '5k-10k', label: 'S5,000 - $10,000' },
+  { value: 'over-10k', label: 'Over $10,000' },
   { value: 'not-sure', label: 'Not sure yet' }
 ]
 
@@ -212,15 +221,15 @@ const handleSubmit = async () => {
                     <h3 class="text-lg font-medium text-white mb-4">Project Information</h3>
                     
                     <div class="space-y-2">
-                      <label for="projectType" class="block text-sm font-medium text-gray-300">Project Type *</label>
+                      <label for="teamSize" class="block text-sm font-medium text-gray-300">What is the size of your internal technical team? *</label>
                       <select
-                        id="projectType"
-                        v-model="form.projectType"
+                        id="teamSize"
+                        v-model="form.teamSize"
                         required
                         class="w-full px-4 py-3 rounded-xl bg-gray-900/50 border border-gray-700 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all duration-200"
                       >
                         <option 
-                          v-for="option in projectTypes" 
+                          v-for="option in teamSizes" 
                           :key="option.value" 
                           :value="option.value"
                           :disabled="option.disabled"
@@ -250,43 +259,138 @@ const handleSubmit = async () => {
                     
                     <div class="mt-6 space-y-4">
                       <label class="block text-sm font-medium text-gray-300">Services of Interest</label>
-                      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <div class="flex items-center">
-                          <input
-                            id="cloudInfrastructure"
-                            v-model="form.services.cloudInfrastructure"
-                            type="checkbox"
-                            class="h-4 w-4 text-cyan-500 focus:ring-cyan-500 border-gray-700 rounded bg-gray-900"
-                          />
-                          <label for="cloudInfrastructure" class="ml-3 text-sm text-gray-300">Cloud Infrastructure</label>
+                      
+                      <!-- Primary Services -->
+                      <div class="mb-3">
+                        <p class="text-xs uppercase text-cyan-500 font-semibold mb-2">Primary Services</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          <div class="flex items-center">
+                            <input
+                              id="fullStackDevelopment"
+                              v-model="form.services.fullStackDevelopment"
+                              type="checkbox"
+                              class="h-4 w-4 text-cyan-500 focus:ring-cyan-500 border-gray-700 rounded bg-gray-900"
+                            />
+                            <label for="fullStackDevelopment" class="ml-3 text-sm text-gray-300">Full-Stack Development</label>
+                          </div>
+                          <div class="flex items-center">
+                            <input
+                              id="teamEnablement"
+                              v-model="form.services.teamEnablement"
+                              type="checkbox"
+                              class="h-4 w-4 text-cyan-500 focus:ring-cyan-500 border-gray-700 rounded bg-gray-900"
+                            />
+                            <label for="teamEnablement" class="ml-3 text-sm text-gray-300">Team Enablement</label>
+                          </div>
+                          <div class="flex items-center">
+                            <input
+                              id="cloudInfrastructure"
+                              v-model="form.services.cloudInfrastructure"
+                              type="checkbox"
+                              class="h-4 w-4 text-cyan-500 focus:ring-cyan-500 border-gray-700 rounded bg-gray-900"
+                            />
+                            <label for="cloudInfrastructure" class="ml-3 text-sm text-gray-300">Cloud Infrastructure</label>
+                          </div>
                         </div>
-                        <div class="flex items-center">
-                          <input
-                            id="kubernetes"
-                            v-model="form.services.kubernetes"
-                            type="checkbox"
-                            class="h-4 w-4 text-cyan-500 focus:ring-cyan-500 border-gray-700 rounded bg-gray-900"
-                          />
-                          <label for="kubernetes" class="ml-3 text-sm text-gray-300">Kubernetes</label>
+                      </div>
+                      
+                      <!-- Additional Services -->
+                      <div class="mb-3">
+                        <p class="text-xs uppercase text-cyan-500 font-semibold mb-2">Additional Services</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          <div class="flex items-center">
+                            <input
+                              id="aiDrivenArchitecture"
+                              v-model="form.services.aiDrivenArchitecture"
+                              type="checkbox"
+                              class="h-4 w-4 text-cyan-500 focus:ring-cyan-500 border-gray-700 rounded bg-gray-900"
+                            />
+                            <label for="aiDrivenArchitecture" class="ml-3 text-sm text-gray-300">AI-Driven Architecture</label>
+                          </div>
+                          <div class="flex items-center">
+                            <input
+                              id="devopsCicd"
+                              v-model="form.services.devopsCicd"
+                              type="checkbox"
+                              class="h-4 w-4 text-cyan-500 focus:ring-cyan-500 border-gray-700 rounded bg-gray-900"
+                            />
+                            <label for="devopsCicd" class="ml-3 text-sm text-gray-300">DevOps & CI/CD</label>
+                          </div>
+                          <div class="flex items-center">
+                            <input
+                              id="ctoService"
+                              v-model="form.services.ctoService"
+                              type="checkbox"
+                              class="h-4 w-4 text-cyan-500 focus:ring-cyan-500 border-gray-700 rounded bg-gray-900"
+                            />
+                            <label for="ctoService" class="ml-3 text-sm text-gray-300">CTO as a Service</label>
+                          </div>
+                          <div class="flex items-center">
+                            <input
+                              id="technicalInterviews"
+                              v-model="form.services.technicalInterviews"
+                              type="checkbox"
+                              class="h-4 w-4 text-cyan-500 focus:ring-cyan-500 border-gray-700 rounded bg-gray-900"
+                            />
+                            <label for="technicalInterviews" class="ml-3 text-sm text-gray-300">Technical Interviews</label>
+                          </div>
+                          <div class="flex items-center">
+                            <input
+                              id="technicalMentoring"
+                              v-model="form.services.technicalMentoring"
+                              type="checkbox"
+                              class="h-4 w-4 text-cyan-500 focus:ring-cyan-500 border-gray-700 rounded bg-gray-900"
+                            />
+                            <label for="technicalMentoring" class="ml-3 text-sm text-gray-300">Technical Mentoring</label>
+                          </div>
+                          <div class="flex items-center">
+                            <input
+                              id="toolchainImplementation"
+                              v-model="form.services.toolchainImplementation"
+                              type="checkbox"
+                              class="h-4 w-4 text-cyan-500 focus:ring-cyan-500 border-gray-700 rounded bg-gray-900"
+                            />
+                            <label for="toolchainImplementation" class="ml-3 text-sm text-gray-300">Toolchain Implementation</label>
+                          </div>
                         </div>
-                        <div class="flex items-center">
-                          <input
-                            id="devopsCicd"
-                            v-model="form.services.devopsCicd"
-                            type="checkbox"
-                            class="h-4 w-4 text-cyan-500 focus:ring-cyan-500 border-gray-700 rounded bg-gray-900"
-                          />
-                          <label for="devopsCicd" class="ml-3 text-sm text-gray-300">DevOps & CI/CD</label>
+                      </div>
+                      
+                      <!-- Partner Services -->
+                      <div class="mb-3">
+                        <p class="text-xs uppercase text-purple-500 font-semibold mb-2">Partner Services</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          <div class="flex items-center">
+                            <input
+                              id="businessAnalysis"
+                              v-model="form.services.businessAnalysis"
+                              type="checkbox"
+                              class="h-4 w-4 text-purple-500 focus:ring-purple-500 border-gray-700 rounded bg-gray-900"
+                            />
+                            <label for="businessAnalysis" class="ml-3 text-sm text-gray-300">Business Analysis</label>
+                          </div>
+                          <div class="flex items-center">
+                            <input
+                              id="projectManagement"
+                              v-model="form.services.projectManagement"
+                              type="checkbox"
+                              class="h-4 w-4 text-purple-500 focus:ring-purple-500 border-gray-700 rounded bg-gray-900"
+                            />
+                            <label for="projectManagement" class="ml-3 text-sm text-gray-300">Large Project Management</label>
+                          </div>
+                          <div class="flex items-center">
+                            <input
+                              id="uiuxDesign"
+                              v-model="form.services.uiuxDesign"
+                              type="checkbox"
+                              class="h-4 w-4 text-purple-500 focus:ring-purple-500 border-gray-700 rounded bg-gray-900"
+                            />
+                            <label for="uiuxDesign" class="ml-3 text-sm text-gray-300">UI/UX Design</label>
+                          </div>
                         </div>
-                        <div class="flex items-center">
-                          <input
-                            id="microservices"
-                            v-model="form.services.microservices"
-                            type="checkbox"
-                            class="h-4 w-4 text-cyan-500 focus:ring-cyan-500 border-gray-700 rounded bg-gray-900"
-                          />
-                          <label for="microservices" class="ml-3 text-sm text-gray-300">Microservices Architecture</label>
-                        </div>
+                      </div>
+                      
+                      <!-- Other -->
+                      <div>
                         <div class="flex items-center">
                           <input
                             id="other"
@@ -294,7 +398,7 @@ const handleSubmit = async () => {
                             type="checkbox"
                             class="h-4 w-4 text-cyan-500 focus:ring-cyan-500 border-gray-700 rounded bg-gray-900"
                           />
-                          <label for="other" class="ml-3 text-sm text-gray-300">Other</label>
+                          <label for="other" class="ml-3 text-sm text-gray-300">Other (please specify in description)</label>
                         </div>
                       </div>
                     </div>

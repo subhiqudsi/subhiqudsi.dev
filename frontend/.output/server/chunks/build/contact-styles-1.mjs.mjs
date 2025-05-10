@@ -1,0 +1,4 @@
+const a=".page-enter-active,.page-leave-active{transition:opacity .2s ease-out}.page-enter-from,.page-leave-to{opacity:0}.scroll-animate{opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(.4,0,.2,1)}.scroll-animate.visible{opacity:1;transform:translateY(0)}.form-input{transition:all .3s cubic-bezier(.4,0,.2,1)}.form-input:focus{box-shadow:0 4px 12px #0000001a;transform:translateY(-2px)}.contact-card{transition:all .5s cubic-bezier(.4,0,.2,1)}.contact-card:hover{box-shadow:0 20px 40px #0003;transform:translateY(-8px)}.social-link{transition:all .3s cubic-bezier(.4,0,.2,1)}.social-link:hover{transform:translateY(-4px) scale(1.1)}";
+
+export { a };
+//# sourceMappingURL=contact-styles-1.mjs.mjs.map
