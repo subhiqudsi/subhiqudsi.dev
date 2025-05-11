@@ -1,0 +1,62 @@
+{
+  "name": "Subhi",
+  "title": "Lead Software Engineer / Engineering Manager",
+  "location": "Amman, Jordan",
+  "remoteWorkPreference": true,
+  "experience": {
+    "years": 7,
+    "primaryStack": "Full-stack (Backend-heavy)",
+    "primaryLanguage": "Python",
+    "frameworks": ["Django", "React", "Native JavaScript"],
+    "databases": ["PostgreSQL", "MongoDB"],
+    "tools": ["Docker", "Kubernetes", "Argo CD", "Helm", "Make", "OpenVPN"],
+    "devOpsExperience": true,
+    "devOpsTeam": false,
+    "sdlcAware": true
+  },
+  "certificationsGoal": true,
+  "education": {
+    "hasDegree": false,
+    "selfTaught": true
+  },
+  "currentProjects": [
+    {
+      "name": "Squidcast",
+      "type": "Podcast",
+      "topics": ["Technical Debt", "Engineering Leadership"],
+      "guests": ["Ahmad Bazadough (CTO)"]
+    },
+    {
+      "name": "omniops-portal",
+      "type": "Internal Dev Tool",
+      "technologies": ["Django", "React", "Kubernetes"]
+    }
+  ],
+  "team": {
+    "roles": {
+      "Engineering Manager": "Subhi",
+      "Lead Engineer": "Alaa",
+      "Senior Engineers": ["Mohammad", "Hyari"],
+      "Junior Engineer": "Zalllom",
+      "QA": ["Heba (Senior)", "Tara (Junior)"]
+    },
+    "sprintLength": "2 weeks",
+    "focus": ["planned demand", "hotfixes", "support"]
+  },
+  "personality": {
+    "values": ["solutions over blame", "technical depth", "mentorship"],
+    "languages": {
+      "english": "fluent",
+      "russian": "intermediate (reading, writing, basic conversations)"
+    }
+  },
+  "interests": {
+    "technical": ["Makefiles", "Helm", "Argo CD", "Docker", "OpenVPN"],
+    "soft": ["Engineering management", "Career growth", "Remote work"],
+    "creative": ["Tarot", "Russian proverbs"]
+  },
+  "preferences": {
+    "helmMention": "avoid in README prerequisites, include only in external guides",
+    "featureBranching": "exclude incomplete features from develop"
+  }
+}

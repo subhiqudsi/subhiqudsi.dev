@@ -63,4 +63,10 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2025-04-06',
+
+  runtimeConfig: {
+    public: {
+      backendUrl: "http://localhost:8000"
+    }
+  }
 })

@@ -1,15 +1,41 @@
-version: '3'
+version: '3.7'
+
 services:
-  nginnx:
+  nginx:
     image: nginx:latest
+    container_name: nginx
     ports:
-      - 443:443
-    restart: always
+      - "80:80"
+      - "443:443"
     volumes:
-      - ./nginx/conf/:/etc/nginx/conf.d/:ro
-      - ./certbot/www/:/var/www/certbot/:ro
+      # Your Nginx vhost configs:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      # Certificates and keys from Certbot:
+      - ./certs/live:/etc/letsencrypt/live:ro
+      - ./certs/archive:/etc/letsencrypt/archive:ro
+      - ./certs/renewal:/etc/letsencrypt/renewal:ro
+    restart: always
+
   certbot:
     image: certbot/certbot:latest
+    container_name: certbot
     volumes:
-      - ./certbot/www/:/var/www/certbot/:rw
-      - ./certbot/conf/:/etc/letsencrypt/:rw
+      # Persist Certbot state and keys:
+      - ./certs:/etc/letsencrypt
+      - ./lib-certs:/var/lib/letsencrypt
+    entrypoint: >
+      sh -c "certbot certonly --manual --preferred-challenges dns --agree-tos --no-eff-email -m subhiqudsi@gmail.com -d app.subhiqudsi.dev"
+    # You’ll run this on demand, not as a daemon:
+    # docker-compose run --rm certbot
+    restart: "no"
+
+  backend:
+    image: app.subhiqudsi.dev
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ..:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_NAME=tinyllama
+      - CORS_ALLOWED=http://localhost:3000

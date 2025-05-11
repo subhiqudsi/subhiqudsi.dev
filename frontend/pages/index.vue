@@ -24,8 +24,8 @@ const features = [
   },
   {
     icon: 'heroicons:cube-transparent',
-    title: 'System Architecture',
-    description: 'Design and implementation of scalable, maintainable software architectures'
+    title: 'Product Engineering Partnership',
+    description: 'Help define and prioritize product roadmap in technical terms, Ideal for early-stage startups'
   },
   {
     icon: 'heroicons:arrow-path',
