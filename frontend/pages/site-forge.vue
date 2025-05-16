@@ -49,156 +49,63 @@
             </p>
           </div>
         </ScrollAnimation>
+        
+        <!-- Process Section -->
+        <ScrollAnimation direction="up" :delay="250">
+          <div class="mb-16">
+            <div class="text-center mb-10">
+              <h2 class="text-3xl font-bold text-white mb-4">How It Works</h2>
+              <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                Follow these simple steps to create and deploy your website
+              </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+              <div class="bg-gray-800/30 backdrop-blur-sm rounded-xl p-6 border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-300">
+                <div class="flex items-center mb-4">
+                  <div class="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mr-3">1</div>
+                  <h3 class="text-lg font-semibold text-white">Generate Style</h3>
+                </div>
+                <p class="text-gray-300 text-sm">Define your brand's unique style and visual identity through AI assistance</p>
+              </div>
+              
+              <div class="bg-gray-800/30 backdrop-blur-sm rounded-xl p-6 border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-300">
+                <div class="flex items-center mb-4">
+                  <div class="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mr-3">2</div>
+                  <h3 class="text-lg font-semibold text-white">Add & Generate Pages</h3>
+                </div>
+                <p class="text-gray-300 text-sm">Create and customize pages with content that matches your brand's voice and goals</p>
+              </div>
+              
+              <div class="bg-gray-800/30 backdrop-blur-sm rounded-xl p-6 border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-300">
+                <div class="flex items-center mb-4">
+                  <div class="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mr-3">3</div>
+                  <h3 class="text-lg font-semibold text-white">Add Custom AI Data</h3>
+                </div>
+                <p class="text-gray-300 text-sm">Optionally enhance your site with custom AI-powered features and personalized content</p>
+              </div>
+              
+              <div class="bg-gray-800/30 backdrop-blur-sm rounded-xl p-6 border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-300">
+                <div class="flex items-center mb-4">
+                  <div class="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mr-3">4</div>
+                  <h3 class="text-lg font-semibold text-white">Generate Header</h3>
+                </div>
+                <p class="text-gray-300 text-sm">Create a professional navigation and header that guides visitors through your site</p>
+              </div>
+              
+              <div class="bg-gray-800/30 backdrop-blur-sm rounded-xl p-6 border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-300">
+                <div class="flex items-center mb-4">
+                  <div class="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mr-3">5</div>
+                  <h3 class="text-lg font-semibold text-white">Deploy Your Site</h3>
+                </div>
+                <p class="text-gray-300 text-sm">Buy a domain and map the CNAME to your hosted URL at subhiqudsi.dev for instant publishing</p>
+              </div>
+            </div>
+          </div>
+        </ScrollAnimation>
 
         <!-- Chat Interface -->
-        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-24">
-          <!-- Chat Window -->
-          <div
-              class="lg:col-span-3 bg-gray-800/40 backdrop-blur-sm rounded-3xl border border-cyan-500/10 overflow-hidden">
-            <div class="p-6 border-b border-cyan-500/10 bg-gray-800/60">
-              <div class="flex items-center">
-                <div
-                    class="w-10 h-10 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center mr-3">
-                  <Icon name="heroicons:code-bracket-square" class="w-6 h-6 text-white"/>
-                </div>
-                <div>
-                  <h2 class="text-xl font-semibold text-white">SiteForge AI</h2>
-                  <p class="text-gray-400 text-sm">Let's build your website together</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Messages -->
-            <div ref="chatContainerRef" class="h-96 overflow-y-auto p-4 space-y-4">
-              <div
-                  v-for="(message, index) in messages"
-                  :key="index"
-                  :class="[
-                  message.role === 'user' ? 'ml-auto bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border-cyan-500/20' : 'mr-auto bg-gray-700/30 border-gray-600/30',
-                  'max-w-[80%] rounded-2xl p-4 border backdrop-blur-sm'
-                ]"
-              >
-                <div class="flex items-start gap-3">
-                  <div v-if="message.role !== 'user'"
-                       class="w-8 h-8 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center flex-shrink-0">
-                    <Icon name="heroicons:code-bracket" class="w-4 h-4 text-white"/>
-                  </div>
-                  <div v-else class="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center flex-shrink-0">
-                    <Icon name="heroicons:user" class="w-4 h-4 text-white"/>
-                  </div>
-                  <div>
-                    <div class="flex justify-between items-center mb-1">
-                      <span class="font-medium text-white">
-                        {{ message.role === 'user' ? 'You' : 'SiteForge AI' }}
-                      </span>
-                      <span class="text-xs text-gray-400">{{ formatTime(message.timestamp) }}</span>
-                    </div>
-                    <p class="text-gray-300">{{ message.content }}</p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Typing indicator -->
-              <div v-if="isProcessing"
-                   class="mr-auto max-w-[80%] rounded-2xl p-4 border backdrop-blur-sm bg-gray-700/30 border-gray-600/30">
-                <div class="flex items-center gap-3">
-                  <div
-                      class="w-8 h-8 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center flex-shrink-0">
-                    <Icon name="heroicons:code-bracket" class="w-4 h-4 text-white"/>
-                  </div>
-                  <div class="flex space-x-1">
-                    <div class="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style="animation-delay: 0ms"></div>
-                    <div class="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style="animation-delay: 150ms"></div>
-                    <div class="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style="animation-delay: 300ms"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Quick templates -->
-            <div class="p-4 border-t border-cyan-500/10 bg-gray-800/60">
-              <p class="text-sm text-gray-400 mb-3">Quick start templates:</p>
-              <div class="flex flex-wrap gap-2">
-                <button
-                    v-for="(template, index) in templates"
-                    :key="index"
-                    @click="selectTemplate(template)"
-                    class="px-3 py-1 text-sm bg-gray-700/50 hover:bg-gray-700 text-gray-300 rounded-full border border-cyan-500/10 hover:border-cyan-500/30 transition-colors duration-200"
-                >
-                  {{ template }}
-                </button>
-              </div>
-            </div>
-
-            <!-- Input -->
-            <div class="p-4 border-t border-cyan-500/10 bg-gray-800/80">
-              <div class="flex">
-                <textarea
-                    v-model="userInput"
-                    @keydown="handleKeyDown"
-                    placeholder="Describe the website you want to create..."
-                    class="flex-grow px-4 py-3 bg-gray-700/50 border border-cyan-500/20 rounded-l-xl text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 resize-none"
-                    rows="2"
-                ></textarea>
-                <button
-                    @click="sendMessage"
-                    :disabled="isProcessing || !userInput.trim()"
-                    class="px-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-r-xl hover:from-cyan-600 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
-                >
-                  <Icon v-if="isProcessing" name="heroicons:arrow-path" class="w-5 h-5 animate-spin"/>
-                  <Icon v-else name="heroicons:paper-airplane" class="w-5 h-5"/>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Preview Panel -->
-          <div class="lg:col-span-2">
-            <div
-                class="bg-gray-800/40 backdrop-blur-sm rounded-3xl border border-cyan-500/10 overflow-hidden h-full flex flex-col">
-              <div class="p-6 border-b border-cyan-500/10 bg-gray-800/60">
-                <h2 class="text-xl font-semibold text-white flex items-center">
-                  <Icon name="heroicons:computer-desktop" class="w-6 h-6 text-cyan-400 mr-2"/>
-                  Website Preview
-                </h2>
-              </div>
-
-              <div class="p-8 flex-grow flex items-center justify-center">
-                <div v-if="previewVisible" class="w-full">
-                  <div
-                      class="relative rounded-xl overflow-hidden border-2 border-cyan-500/30 shadow-lg shadow-cyan-500/10">
-                    <img :src="previewUrl" alt="Website Preview" class="w-full h-auto"/>
-                    <div
-                        class="absolute top-0 left-0 right-0 h-8 bg-gray-800/80 backdrop-blur-sm flex items-center px-4">
-                      <div class="flex space-x-2">
-                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                      </div>
-                      <div class="mx-auto text-xs text-gray-300">your-awesome-site.com</div>
-                    </div>
-                  </div>
-
-                  <div class="mt-6 flex justify-center">
-                    <button
-                        class="px-5 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl hover:from-cyan-600 hover:to-blue-700 flex items-center transition-all duration-300 transform hover:scale-[1.02]">
-                      <Icon name="heroicons:arrow-down-tray" class="w-5 h-5 mr-2"/>
-                      Download Website
-                    </button>
-                  </div>
-                </div>
-
-                <div v-else class="text-center">
-                  <div class="w-24 h-24 bg-cyan-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Icon name="heroicons:code-bracket" class="w-12 h-12 text-cyan-400"/>
-                  </div>
-                  <p class="text-gray-300 mb-2">Describe your website in the chat</p>
-                  <p class="text-gray-500 text-sm">Your website preview will appear here</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ChatInterface />
 
         <!-- Features Section -->
         <ScrollAnimation direction="up" :delay="300">
@@ -260,26 +167,18 @@
 
 <script>
 import {nextTick} from 'vue'
-import LoginRegisterModal from "~/pages/LoginRegisterModal.vue";
+import LoginRegisterModal from "~/components/LoginRegisterModal.vue";
+import ChatInterface from "~/components/ChatInterface.vue";
 
 export default {
   name: 'SiteForgePage',
-  components: {LoginRegisterModal},
+  components: {ChatInterface, LoginRegisterModal},
 
   data() {
     return {
       isAuthenticated: false,
-      messages: [
-        {
-          role: 'system',
-          content: 'Welcome to SiteForge! I can help you create a stunning static website through our conversation. Just describe what you want, and I\'ll generate it for you. Let\'s start with the basics - what kind of website would you like to build?',
-          timestamp: new Date()
-        }
-      ],
-      userInput: '',
+
       isProcessing: false,
-      previewUrl: '',
-      previewVisible: false,
       chatContainerRef: null,
       siteTemplates: [
         {
@@ -331,12 +230,6 @@ export default {
           description: 'Automatically sources and optimizes images...'
         }
       ],
-      templates: [
-        "I need a portfolio website for my photography business",
-        "Create a personal blog with a minimal design",
-        "I want an e-commerce site for selling handmade jewelry",
-        "Build me a landing page for my new app"
-      ]
     }
   },
 
@@ -352,59 +245,13 @@ export default {
     })
   },
   mounted() {
-    this.isAuthenticated = sessionStorage.getItem('asd') !== null
+    console.log('triggered')
+    console.log(sessionStorage.getItem('token') !== undefined)
+    console.log(sessionStorage.getItem('token'))
+    this.isAuthenticated = sessionStorage.getItem('token') !== 'undefined';
   },
 
   methods: {
-    async sendMessage() {
-      if (!this.userInput.trim() || this.isProcessing) return
-
-      const userMessage = {
-        role: 'user',
-        content: this.userInput,
-        timestamp: new Date()
-      }
-
-      this.messages.push(userMessage)
-      this.userInput = ''
-      this.isProcessing = true
-      this.scrollToBottom()
-
-      await new Promise(resolve => setTimeout(resolve, 1500))
-
-      const aiResponse = this.generateAIResponse(userMessage.content)
-      this.messages.push({role: 'system', content: aiResponse, timestamp: new Date()})
-
-      this.isProcessing = false
-      this.scrollToBottom()
-
-      if (this.messages.length > 4) {
-        await new Promise(resolve => setTimeout(resolve, 1000))
-        const random = Math.floor(Math.random() * this.siteTemplates.length)
-        this.previewUrl = this.siteTemplates[random].preview
-        this.previewVisible = true
-      }
-    },
-
-    generateAIResponse(message) {
-      const lower = message.toLowerCase()
-      if (lower.includes('portfolio') || lower.includes('business')) {
-        return "I'll create a professional portfolio site for you..."
-      } else if (lower.includes('blog') || lower.includes('personal')) {
-        return "A blog sounds great! I can create a clean design..."
-      } else if (lower.includes('shop') || lower.includes('store') || lower.includes('ecommerce')) {
-        return "I can help with an e-commerce site layout..."
-      } else if (lower.includes('color') || lower.includes('style') || lower.includes('theme')) {
-        return "I've updated the design with your color preferences..."
-      } else if (lower.includes('image') || lower.includes('photo') || lower.includes('picture')) {
-        return "I'll incorporate high-quality images in the design..."
-      } else if (lower.includes('download') || lower.includes('deploy') || lower.includes('publish')) {
-        return "Your website is ready to download!"
-      } else {
-        return "I'm designing your website based on your description..."
-      }
-    },
-
     scrollToBottom() {
       nextTick(() => {
         if (this.chatContainerRef) {
@@ -413,27 +260,14 @@ export default {
       })
     },
 
-    formatTime(date) {
-      return date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})
-    },
 
-    handleKeyDown(e) {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault()
-        this.sendMessage()
-      }
-    },
     updateAuthenticated() {
       this.isAuthenticated = true
     },
 
 
-    selectTemplate(template) {
-      this.userInput = template
-    },
-
     handleLogout() {
-      sessionStorage.setItem('token', null)
+      sessionStorage.setItem('token', undefined)
       this.isAuthenticated = false
     }
   }
@@ -442,9 +276,6 @@ export default {
 
 
 <style scoped>
-.animate-bounce {
-  animation: bounce 1.5s infinite;
-}
 
 @keyframes bounce {
   0%, 80%, 100% {

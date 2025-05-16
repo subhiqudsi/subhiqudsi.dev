@@ -10,7 +10,7 @@ useHead({
 const sitechProjects = [
   {
     id: 'delmonti-prices-prediction',
-    title: 'Delmonti Prices Prediction',
+    title: 'Avocado Supply Demand & Prices Forecast',
     subtitle: 'Secure Middleware for Data Science Team',
     logo: 'heroicons:chart-bar',
     tags: ['Django', 'API', 'Caching', 'Middleware'],
@@ -34,7 +34,7 @@ const sitechProjects = [
   },
   {
     id: 'sss-truck-delivery',
-    title: 'SSS Truck Delivery',
+    title: 'Truck Delivery Aggergator',
     subtitle: 'Project Inception and Technical Leadership',
     logo: 'heroicons:truck',
     tags: ['NestJS', 'Kubernetes', 'Docker', 'Vue.js'],
@@ -202,7 +202,7 @@ const sitechProjects = [
   },
   {
     id: 'tamatem-plus',
-    title: 'Tamatem Plus MVP',
+    title: 'Tamatem Plus',
     subtitle: 'Centralized Gaming Authentication and Marketplace',
     logo: 'heroicons:puzzle-piece',
     tags: ['Docker', 'Django', 'DRF', 'jQuery', 'Angular2', 'K8s', 'Helm', 'AWS'],
@@ -315,7 +315,7 @@ const scrollToCaseStudy = (id) => {
               Success Stories
             </div>
             <h1 class="text-5xl font-bold text-white mb-6 leading-tight">
-              Client <span class="bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">Case Studies</span>
+              Portfolio <span class="bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">Case Studies</span>
             </h1>
             <p class="text-xl text-gray-300 max-w-3xl mx-auto">
               Real-world examples of our software development expertise and technical leadership
@@ -351,13 +351,13 @@ const scrollToCaseStudy = (id) => {
               <div class="z-2 absolute -left-4 -top-4 md:-left-6 md:-top-6 w-12 h-12 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold text-xl">
                 {{ index + 1 }}
               </div>
-              
-              <div class="bg-gray-800/30 backdrop-blur-sm rounded-3xl overflow-hidden border border-cyan-500/10">
+
+              <div v-if='study.approved' class="bg-gray-800/30 backdrop-blur-sm rounded-3xl overflow-hidden border border-cyan-500/10">
                 <!-- Hero Section -->
                 <div class="relative h-64 sm:h-96 overflow-hidden">
                   <div class="absolute inset-0 bg-gradient-to-b from-gray-900/20 to-gray-900/90 z-10"></div>
-                  <img 
-                    :src="study.image" 
+                  <img
+                    :src="study.image"
                     :alt="study.title"
                     class="w-full h-full object-cover"
                     loading="lazy"
@@ -366,8 +366,8 @@ const scrollToCaseStudy = (id) => {
                     <div class="flex justify-between items-end">
                       <div class="flex-1">
                         <div class="flex flex-wrap gap-2 mb-4">
-                          <span 
-                            v-for="tag in study.tags" 
+                          <span
+                            v-for="tag in study.tags"
                             :key="tag"
                             class="px-3 py-1 bg-cyan-900/30 text-cyan-400 text-xs font-medium rounded-full"
                           >
@@ -381,8 +381,8 @@ const scrollToCaseStudy = (id) => {
                         <span
                           :class="[
                             'px-4 py-2 rounded-lg text-sm font-medium',
-                            study.employer === 'subhiqudsi.dev' 
-                              ? 'bg-purple-900/30 text-purple-400 border border-purple-500/30' 
+                            study.employer === 'subhiqudsi.dev'
+                              ? 'bg-purple-900/30 text-purple-400 border border-purple-500/30'
                               : 'bg-blue-900/30 text-blue-400 border border-blue-500/30'
                           ]"
                         >
@@ -392,12 +392,12 @@ const scrollToCaseStudy = (id) => {
                     </div>
                   </div>
                 </div>
-                
+
                 <div class="p-8 md:p-12">
                   <!-- Highlights -->
                   <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-12">
-                    <div 
-                      v-for="(highlight, hIndex) in study.highlights" 
+                    <div
+                      v-for="(highlight, hIndex) in study.highlights"
                       :key="hIndex"
                       class="bg-gray-800/40 backdrop-blur-sm p-6 rounded-xl border border-cyan-500/10"
                     >
@@ -413,14 +413,14 @@ const scrollToCaseStudy = (id) => {
                         Overview
                       </h3>
                       <p class="text-gray-300 mb-6">{{ study.summary }}</p>
-                      
+
                       <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
                         <Icon name="heroicons:puzzle-piece" class="w-5 h-5 text-cyan-400 mr-2" />
                         Challenges
                       </h3>
                       <p class="text-gray-300">{{ study.challenges }}</p>
                     </div>
-                    
+
                     <div>
                       <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
                         <Icon name="heroicons:light-bulb" class="w-5 h-5 text-cyan-400 mr-2" />
@@ -428,14 +428,14 @@ const scrollToCaseStudy = (id) => {
                       </h3>
                       <p class="text-gray-300">{{ study.solution }}</p>
                     </div>
-                    
+
                     <div>
                       <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
                         <Icon name="heroicons:chart-bar" class="w-5 h-5 text-cyan-400 mr-2" />
                         Results
                       </h3>
                       <p class="text-gray-300 mb-8">{{ study.results }}</p>
-                      
+
                       <!-- Testimonial -->
                       <div class="bg-gradient-to-br from-cyan-500/10 to-blue-600/10 rounded-xl p-6 border border-cyan-500/20 relative">
                         <div class="absolute -top-3 -left-3 w-8 h-8 flex items-center justify-center bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg">
@@ -456,6 +456,7 @@ const scrollToCaseStudy = (id) => {
                   </div>
                 </div>
               </div>
+              <div class="p-5 bg-gray-800/30 backdrop-blur-sm rounded-3xl overflow-hidden border border-cyan-500/10" v-else> Awaiting Disclosure Approval</div>
             </div>
           </ScrollAnimation>
         </div>
