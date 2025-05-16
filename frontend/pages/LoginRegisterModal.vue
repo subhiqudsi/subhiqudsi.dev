@@ -24,12 +24,12 @@
 
         <form @submit.prevent="handleLogin" class="space-y-4">
           <div>
-            <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email</label>
+            <label for="username" class="block text-sm font-medium text-gray-300 mb-1">Username</label>
             <input
-                id="email"
-                v-model="loginForm.email"
-                type="email"
-                placeholder="your@email.com"
+                id="username"
+                v-model="loginForm.username"
+                type="text"
+                placeholder="yourusername"
                 class="w-full px-4 py-3 bg-gray-700/50 border border-cyan-500/20 rounded-xl text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/40"
                 required
             />
@@ -72,7 +72,7 @@
 
         <div class="mt-6 flex items-center justify-center">
           <div class="text-center text-xs text-gray-500">
-            <p>Demo account: demo@example.com / password</p>
+            <p>Demo account: demo / password</p>
           </div>
         </div>
       </div>
@@ -104,6 +104,17 @@
                 v-model="registerForm.email"
                 type="email"
                 placeholder="your@email.com"
+                class="w-full px-4 py-3 bg-gray-700/50 border border-cyan-500/20 rounded-xl text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/40"
+                required
+            />
+          </div>
+          <div>
+            <label for="reg-username" class="block text-sm font-medium text-gray-300 mb-1">Username</label>
+            <input
+                id="reg-username"
+                v-model="registerForm.username"
+                type="text"
+                placeholder="yourusername"
                 class="w-full px-4 py-3 bg-gray-700/50 border border-cyan-500/20 rounded-xl text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/40"
                 required
             />
@@ -162,13 +173,14 @@ export default {
   name: 'LoginRegisterModal',
   props: {
     isAuthenticated: {},
+    updateAuthenticated:{}
   },
   data() {
     return {
       authError: '',
       isProcessing: false,
-      loginForm: {email: '', password: ''},
-      registerForm: {email: '', password: '', confirmPassword: ''},
+      loginForm: {username: '', password: ''},
+      registerForm: {email: '', username: '', password: '', confirmPassword: ''},
       showLogin: true,
     }
   },
@@ -180,25 +192,63 @@ export default {
     
     handleLogin() {
       this.authError = ''
-      if (!this.loginForm.email || !this.loginForm.password) {
+      if (!this.loginForm.username || !this.loginForm.password) {
         this.authError = 'Please fill in all fields'
         return
       }
       this.isProcessing = true
-      setTimeout(() => {
-        if (this.loginForm.email === 'demo@example.com' && this.loginForm.password === 'password') {
+      
+      // Demo account fallback for local testing
+      if (this.loginForm.username === 'demo' && this.loginForm.password === 'password') {
+        setTimeout(() => {
           this.isAuthenticated = true
-          this.loginForm = {email: '', password: ''}
-        } else {
-          this.authError = 'Invalid email or password'
-        }
-        this.isProcessing = false
-      }, 1000)
+          this.loginForm = {username: '', password: ''}
+          this.isProcessing = false
+        }, 500);
+        return;
+      }
+      
+      // Send login data to backend
+      try {
+        fetch(useRuntimeConfig().public.backendUrl + '/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: this.loginForm.username,
+            password: this.loginForm.password,
+          }),
+        })
+        .then(response => {
+          if (!response.ok) {
+            return response.json().then(data => {
+              throw new Error(data.message || 'Login failed');
+            });
+          }
+          return response.json();
+        })
+        .then(data => {
+          // Login successful
+          sessionStorage.setItem('token', data.token)
+          this.updateAuthenticated()
+          this.loginForm = {username: '', password: ''};
+        })
+        .catch(error => {
+          this.authError = error.message || 'Invalid username or password';
+        })
+        .finally(() => {
+          this.isProcessing = false;
+        });
+      } catch (error) {
+        this.authError = 'Login failed. Please try again.';
+        this.isProcessing = false;
+      }
     },
 
     handleRegister() {
       this.authError = ''
-      if (!this.registerForm.email || !this.registerForm.password || !this.registerForm.confirmPassword) {
+      if (!this.registerForm.email || !this.registerForm.username || !this.registerForm.password || !this.registerForm.confirmPassword) {
         this.authError = 'Please fill in all fields'
         return
       }
@@ -207,11 +257,43 @@ export default {
         return
       }
       this.isProcessing = true
-      setTimeout(() => {
-        this.isAuthenticated = true
-        this.registerForm = {email: '', password: '', confirmPassword: ''}
-        this.isProcessing = false
-      }, 1000)
+      
+      // Send registration data to backend
+      try {
+        fetch(useRuntimeConfig().public.backendUrl + '/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: this.registerForm.email,
+            username: this.registerForm.username,
+            password: this.registerForm.password,
+          }),
+        })
+        .then(response => {
+          if (!response.ok) {
+            return response.json().then(data => {
+              throw new Error(data.message || 'Registration failed');
+            });
+          }
+          return response.json();
+        })
+        .then(data => {
+          // Registration successful
+          this.showLogin = true;
+          this.registerForm = {email: '', username: '', password: '', confirmPassword: ''};
+        })
+        .catch(error => {
+          this.authError = error.message || 'Registration failed. Please try again.';
+        })
+        .finally(() => {
+          this.isProcessing = false;
+        });
+      } catch (error) {
+        this.authError = 'Registration failed. Please try again.';
+        this.isProcessing = false;
+      }
     },
 
     toggleAuthForm() {

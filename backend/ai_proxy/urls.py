@@ -8,5 +8,5 @@ urlpatterns = [
     path('subhi-info', views.InquireInfoSubhiView.as_view(), name='subhi_info'),
 
     # Site Forge
-    path('register/', UserCreateAPIView.as_view(), name='user-register'),
+    path('register', UserCreateAPIView.as_view(), name='user-register'),
 ]
