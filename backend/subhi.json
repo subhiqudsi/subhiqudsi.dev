@@ -1,62 +1,66 @@
 {
   "name": "Subhi",
-  "title": "Lead Software Engineer / Engineering Manager",
-  "location": "Amman, Jordan",
-  "remoteWorkPreference": true,
-  "experience": {
-    "years": 7,
-    "primaryStack": "Full-stack (Backend-heavy)",
-    "primaryLanguage": "Python",
-    "frameworks": ["Django", "React", "Native JavaScript"],
-    "databases": ["PostgreSQL", "MongoDB"],
-    "tools": ["Docker", "Kubernetes", "Argo CD", "Helm", "Make", "OpenVPN"],
-    "devOpsExperience": true,
-    "devOpsTeam": false,
-    "sdlcAware": true
+  "personal_info": {
+    "gender": "Male",
+    "birth_year": 1985,
+    "location": "Amman, Jordan",
+    "has_wife": false,
+    "has_pets": false,
+    "focused": true,
+    "hobbies": [
+      "reading documents",
+      "reading analytical articles",
+      "playing electric guitar (blues and jazz)"
+    ],
+    "handedness": "Left-handed",
+    "education": "No university degree but strong technical leadership"
   },
-  "certificationsGoal": true,
-  "education": {
-    "hasDegree": false,
-    "selfTaught": true
-  },
-  "currentProjects": [
-    {
-      "name": "Squidcast",
-      "type": "Podcast",
-      "topics": ["Technical Debt", "Engineering Leadership"],
-      "guests": ["Ahmad Bazadough (CTO)"]
+  "professional_info": {
+    "current_role": "Software Consultant & CTO",
+    "technical_focus": "Backend-heavy full-stack developer with 7+ years of strong Django experience",
+    "devops": "Handles DevOps responsibilities but is not DevOps-focused; no dedicated DevOps team",
+    "sdlc": "Leads teams working within the full Software Development Life Cycle (SDLC)",
+    "languages": [
+      "Python",
+      "javascript",
+      "typescript"
+      ],
+    "frameworks": [
+      "Kafka",
+      "Vuejs",
+      "nuxtjs",
+      "nestjs",
+      "Angular",
+      "React",
+      "FastAPI",
+      "Elasticsearch",
+      "OpenEdX",
+      "Django"
+    ],
+    "devops":[
+      "AWS",
+      "CI/CD pipelines",
+      "Git",
+      "Kubernetes",
+      "Helm"
+    ],
+    "leadership_experience_years": 3,
+    "leadership_style": {
+      "empathetic_and_protective": "Advocates for team, raises issues without blame, sensitive to leadership feedback",
+      "team_focused": "Prioritizes team health, clear sprint planning, sustainable delivery over firefighting",
+      "pragmatic_communicator": "Values clarity, directness, constructive conversations, frames issues as system/process problems",
+      "mentor_oriented": "Supports growth of junior/mid-level engineers, delegates with care, encourages ownership",
+      "autonomy_enabling": "Handles DevOps/infra as needed, bias toward action and responsibility",
+      "solution_driven": "Emphasizes sustainable, long-term business solutions beyond coding"
     },
-    {
-      "name": "omniops-portal",
-      "type": "Internal Dev Tool",
-      "technologies": ["Django", "React", "Kubernetes"]
-    }
-  ],
-  "team": {
-    "roles": {
-      "Engineering Manager": "Subhi",
-      "Lead Engineer": "Alaa",
-      "Senior Engineers": ["Mohammad", "Hyari"],
-      "Junior Engineer": "Zalllom",
-      "QA": ["Heba (Senior)", "Tara (Junior)"]
-    },
-    "sprintLength": "2 weeks",
-    "focus": ["planned demand", "hotfixes", "support"]
-  },
-  "personality": {
-    "values": ["solutions over blame", "technical depth", "mentorship"],
-    "languages": {
-      "english": "fluent",
-      "russian": "intermediate (reading, writing, basic conversations)"
+    "work_style": {
+      "peer_coding": true,
+      "delegation": true,
+      "senior_dev_involvement": true,
+      "root_cause_focus": true,
+      "technical_project_management": true,
+      "client_communications": true
     }
   },
-  "interests": {
-    "technical": ["Makefiles", "Helm", "Argo CD", "Docker", "OpenVPN"],
-    "soft": ["Engineering management", "Career growth", "Remote work"],
-    "creative": ["Tarot", "Russian proverbs"]
-  },
-  "preferences": {
-    "helmMention": "avoid in README prerequisites, include only in external guides",
-    "featureBranching": "exclude incomplete features from develop"
-  }
+  "summary": "Known for technical excellence, mentoring, clear communication, and solving root causes. Thrives in fast-paced environments with a mission to build resilient teams and deliver impactful solutions."
 }

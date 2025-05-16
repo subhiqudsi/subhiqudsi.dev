@@ -15,7 +15,7 @@ class GenerateView(APIView):
 
 class InquireInfoSubhiView(APIView):
 
-    def get_subhi_json(self):
+    def get_system_content(self):
         with open('subhi.json') as f:
             mcp_config = f.read()
         return mcp_config
@@ -28,7 +28,7 @@ class InquireInfoSubhiView(APIView):
             "messages": [
                 {
                     "role": "system",
-                    "content": f"Always very short response, Use this user profile to answer questions: {self.get_subhi_json()}"
+                    "content": "user is potential client, you my assistant SubhiBot, don't guess, my profile " + self.get_system_content()
                 },
                 {
                     "role": "user",
