@@ -1,8 +1,12 @@
 import requests
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.shortcuts import render
+from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from backend.ai_proxy.serializers import UserCreateSerializer
 
 
 class GenerateView(APIView):
@@ -43,3 +47,8 @@ class InquireInfoSubhiView(APIView):
             json=self.get_ai_payload()
         )
         return Response({'response': r.json()['message']['content']})
+
+
+class UserCreateAPIView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserCreateSerializer

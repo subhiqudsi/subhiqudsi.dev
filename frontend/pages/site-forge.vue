@@ -1,178 +1,3 @@
-<script setup>
-useHead({
-  title: 'SiteForge AI - Build Static Sites with AI',
-  meta: [
-    { name: 'description', content: 'Generate beautiful static websites through natural language conversation with SiteForge AI' }
-  ]
-})
-
-// Reactive state for the chat
-const messages = ref([
-  {
-    role: 'system',
-    content: 'Welcome to SiteForge! I can help you create a stunning static website through our conversation. Just describe what you want, and I\'ll generate it for you. Let\'s start with the basics - what kind of website would you like to build?',
-    timestamp: new Date()
-  }
-])
-const userInput = ref('')
-const isProcessing = ref(false)
-const previewUrl = ref('')
-const previewVisible = ref(false)
-const chatContainerRef = ref(null)
-
-// Example site templates to showcase
-const siteTemplates = [
-  {
-    title: 'Business Portfolio',
-    description: 'Professional and clean design for businesses or freelancers',
-    preview: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
-  },
-  {
-    title: 'Creative Agency',
-    description: 'Bold and dynamic design for creative professionals',
-    preview: 'https://images.unsplash.com/photo-1487014679447-9f8336841d58?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
-  },
-  {
-    title: 'E-commerce Store',
-    description: 'Clean product layouts with conversion-focused design',
-    preview: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
-  },
-  {
-    title: 'Personal Blog',
-    description: 'Minimalist design with focus on content and readability',
-    preview: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
-  }
-]
-
-// Feature list for marketing section
-const features = [
-  {
-    icon: 'heroicons:chat-bubble-left-ellipsis',
-    title: 'Conversational Design',
-    description: 'Describe your website in natural language and watch it take shape in real-time'
-  },
-  {
-    icon: 'heroicons:code-bracket',
-    title: 'Clean, Optimized Code',
-    description: 'Generated sites use modern HTML, CSS and JavaScript with best practices'
-  },
-  {
-    icon: 'heroicons:device-phone-mobile',
-    title: 'Responsive Design',
-    description: 'All sites work perfectly on desktop, tablet, and mobile devices'
-  },
-  {
-    icon: 'heroicons:rocket-launch',
-    title: 'Ready to Deploy',
-    description: 'Download your site as a zip file, ready for deployment on any static hosting service'
-  },
-  {
-    icon: 'heroicons:paint-brush',
-    title: 'Customizable Themes',
-    description: 'Choose from various design themes or describe your own custom style'
-  },
-  {
-    icon: 'heroicons:photo',
-    title: 'Image Integration',
-    description: 'Automatically sources and optimizes images based on your content needs'
-  }
-]
-
-// Simulated user message sending
-const sendMessage = async () => {
-  if (!userInput.value.trim() || isProcessing.value) return
-
-  const userMessage = {
-    role: 'user',
-    content: userInput.value,
-    timestamp: new Date()
-  }
-  
-  messages.value.push(userMessage)
-  userInput.value = ''
-  isProcessing.value = true
-  
-  // Scroll to bottom of chat
-  scrollToBottom()
-  
-  // Simulate AI thinking
-  await new Promise(resolve => setTimeout(resolve, 1500))
-  
-  // Simulate AI response
-  const aiResponse = generateAIResponse(userMessage.content)
-  messages.value.push({
-    role: 'system',
-    content: aiResponse,
-    timestamp: new Date()
-  })
-  
-  isProcessing.value = false
-  scrollToBottom()
-  
-  // If we're far enough in the conversation, show a website preview
-  if (messages.value.length > 4) {
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    previewUrl.value = siteTemplates[Math.floor(Math.random() * siteTemplates.length)].preview
-    previewVisible.value = true
-  }
-}
-
-// Simulate AI responses based on user input patterns
-const generateAIResponse = (userMessage) => {
-  const lowerMessage = userMessage.toLowerCase()
-  
-  if (lowerMessage.includes('portfolio') || lowerMessage.includes('business')) {
-    return "I'll create a professional portfolio site for you. Would you like a minimalist design or something more colorful? What sections do you need - About, Services, Portfolio, Contact?"
-  } else if (lowerMessage.includes('blog') || lowerMessage.includes('personal')) {
-    return "A blog sounds great! I can create a clean, content-focused blog design. Would you like features like categories, featured posts, and a newsletter signup? What's the primary topic of your blog?"
-  } else if (lowerMessage.includes('shop') || lowerMessage.includes('store') || lowerMessage.includes('ecommerce')) {
-    return "I can help with an e-commerce site layout. What kind of products will you be selling? Would you prefer a grid layout or more image-focused design for your products?"
-  } else if (lowerMessage.includes('color') || lowerMessage.includes('style') || lowerMessage.includes('theme')) {
-    return "I've updated the design with your color preferences. Would you like to see a preview? I can adjust the styling further based on your feedback."
-  } else if (lowerMessage.includes('image') || lowerMessage.includes('photo') || lowerMessage.includes('picture')) {
-    return "I'll incorporate high-quality images in the design. Would you like me to focus on photography, illustrations, or a mix of both? I can arrange them in galleries, hero sections, or as background elements."
-  } else if (lowerMessage.includes('download') || lowerMessage.includes('deploy') || lowerMessage.includes('publish')) {
-    return "Your website is ready to download! You can deploy it to any static hosting service like Netlify, Vercel, or GitHub Pages. Would you like me to generate deployment instructions for any specific platform?"
-  } else {
-    return "I'm designing your website based on your description. Could you tell me more about the specific sections you'd like to include and any color preferences you have? This helps me create a site that perfectly matches your vision."
-  }
-}
-
-// Scroll chat to bottom after messages update
-const scrollToBottom = () => {
-  nextTick(() => {
-    if (chatContainerRef.value) {
-      chatContainerRef.value.scrollTop = chatContainerRef.value.scrollHeight
-    }
-  })
-}
-
-// Format chat timestamps
-const formatTime = (date) => {
-  return date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
-}
-
-// Handle Enter key for sending messages
-const handleKeyDown = (e) => {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault()
-    sendMessage()
-  }
-}
-
-// Template suggestions for quick starts
-const templates = [
-  "I need a portfolio website for my photography business",
-  "Create a personal blog with a minimal design",
-  "I want an e-commerce site for selling handmade jewelry",
-  "Build me a landing page for my new app"
-]
-
-const selectTemplate = (template) => {
-  userInput.value = template
-}
-</script>
-
 <template>
   <PageTransition>
     <div class="min-h-screen py-16 relative overflow-hidden">
@@ -185,9 +10,28 @@ const selectTemplate = (template) => {
       </div>
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+
+        <LoginRegisterModal v-if="!isAuthenticated" />
+
         <!-- Hero Section -->
         <ScrollAnimation direction="down" :delay="200">
           <div class="text-center mb-16">
+            <!-- User menu when authenticated -->
+            <div v-if="isAuthenticated" class="absolute top-4 right-4 z-10">
+              <div class="flex items-center gap-3">
+                <div class="text-right hidden md:block">
+                  <p class="text-cyan-400 text-sm">Logged in</p>
+                </div>
+                <button
+                  @click="handleLogout"
+                  class="px-3 py-1 rounded-lg border border-cyan-500/30 bg-gray-800/50 hover:bg-gray-700/70 text-white text-sm flex items-center gap-1"
+                >
+                  <Icon name="heroicons:arrow-right-on-rectangle" class="w-4 h-4" />
+                  <span>Logout</span>
+                </button>
+              </div>
+            </div>
+
             <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-cyan-900/30 text-cyan-400 mb-4">
               <Icon name="heroicons:sparkles" class="w-4 h-4 mr-2" />
               AI-Powered Website Builder
@@ -196,7 +40,7 @@ const selectTemplate = (template) => {
               Create Stunning Websites with <span class="bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">SiteForge AI</span>
             </h1>
             <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-              Just describe what you want in natural language, and watch as SiteForge generates 
+              Just describe what you want in natural language, and watch as SiteForge generates
               beautiful, responsive websites ready for deployment
             </p>
           </div>
@@ -396,6 +240,159 @@ const selectTemplate = (template) => {
     </div>
   </PageTransition>
 </template>
+
+
+<script>
+import {nextTick} from 'vue'
+import LoginRegisterModal from "~/pages/LoginRegisterModal.vue";
+
+export default {
+  name: 'SiteForgePage',
+  components: {LoginRegisterModal},
+
+  data() {
+    return {
+      isAuthenticated: false,
+      messages: [
+        {
+          role: 'system',
+          content: 'Welcome to SiteForge! I can help you create a stunning static website through our conversation. Just describe what you want, and I\'ll generate it for you. Let\'s start with the basics - what kind of website would you like to build?',
+          timestamp: new Date()
+        }
+      ],
+      userInput: '',
+      isProcessing: false,
+      previewUrl: '',
+      previewVisible: false,
+      chatContainerRef: null,
+      siteTemplates: [
+        {
+          title: 'Business Portfolio',
+          description: 'Professional and clean design for businesses or freelancers',
+          preview: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?...'
+        },
+        {
+          title: 'Creative Agency',
+          description: 'Bold and dynamic design for creative professionals',
+          preview: 'https://images.unsplash.com/photo-1487014679447-9f8336841d58?...'
+        },
+        {
+          title: 'E-commerce Store',
+          description: 'Clean product layouts with conversion-focused design',
+          preview: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?...'
+        },
+        {
+          title: 'Personal Blog',
+          description: 'Minimalist design with focus on content and readability',
+          preview: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?...'
+        }
+      ],
+      features: [
+        { icon: 'heroicons:chat-bubble-left-ellipsis', title: 'Conversational Design', description: 'Describe your website...' },
+        { icon: 'heroicons:code-bracket', title: 'Clean, Optimized Code', description: 'Generated sites use modern HTML...' },
+        { icon: 'heroicons:device-phone-mobile', title: 'Responsive Design', description: 'All sites work perfectly on...' },
+        { icon: 'heroicons:rocket-launch', title: 'Ready to Deploy', description: 'Download your site as a zip file...' },
+        { icon: 'heroicons:paint-brush', title: 'Customizable Themes', description: 'Choose from various design themes...' },
+        { icon: 'heroicons:photo', title: 'Image Integration', description: 'Automatically sources and optimizes images...' }
+      ],
+      templates: [
+        "I need a portfolio website for my photography business",
+        "Create a personal blog with a minimal design",
+        "I want an e-commerce site for selling handmade jewelry",
+        "Build me a landing page for my new app"
+      ]
+    }
+  },
+
+  created() {
+    useHead({
+      title: 'SiteForge AI - Build Static Sites with AI',
+      meta: [
+        { name: 'description', content: 'Generate beautiful static websites through natural language conversation with SiteForge AI' }
+      ]
+    })
+  },
+
+  methods: {
+    async sendMessage() {
+      if (!this.userInput.trim() || this.isProcessing) return
+
+      const userMessage = {
+        role: 'user',
+        content: this.userInput,
+        timestamp: new Date()
+      }
+
+      this.messages.push(userMessage)
+      this.userInput = ''
+      this.isProcessing = true
+      this.scrollToBottom()
+
+      await new Promise(resolve => setTimeout(resolve, 1500))
+
+      const aiResponse = this.generateAIResponse(userMessage.content)
+      this.messages.push({ role: 'system', content: aiResponse, timestamp: new Date() })
+
+      this.isProcessing = false
+      this.scrollToBottom()
+
+      if (this.messages.length > 4) {
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        const random = Math.floor(Math.random() * this.siteTemplates.length)
+        this.previewUrl = this.siteTemplates[random].preview
+        this.previewVisible = true
+      }
+    },
+
+    generateAIResponse(message) {
+      const lower = message.toLowerCase()
+      if (lower.includes('portfolio') || lower.includes('business')) {
+        return "I'll create a professional portfolio site for you..."
+      } else if (lower.includes('blog') || lower.includes('personal')) {
+        return "A blog sounds great! I can create a clean design..."
+      } else if (lower.includes('shop') || lower.includes('store') || lower.includes('ecommerce')) {
+        return "I can help with an e-commerce site layout..."
+      } else if (lower.includes('color') || lower.includes('style') || lower.includes('theme')) {
+        return "I've updated the design with your color preferences..."
+      } else if (lower.includes('image') || lower.includes('photo') || lower.includes('picture')) {
+        return "I'll incorporate high-quality images in the design..."
+      } else if (lower.includes('download') || lower.includes('deploy') || lower.includes('publish')) {
+        return "Your website is ready to download!"
+      } else {
+        return "I'm designing your website based on your description..."
+      }
+    },
+
+    scrollToBottom() {
+      nextTick(() => {
+        if (this.chatContainerRef) {
+          this.chatContainerRef.scrollTop = this.chatContainerRef.scrollHeight
+        }
+      })
+    },
+
+    formatTime(date) {
+      return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    },
+
+    handleKeyDown(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault()
+        this.sendMessage()
+      }
+    },
+
+    selectTemplate(template) {
+      this.userInput = template
+    },
+
+    handleLogout() {
+      this.isAuthenticated = false
+    }
+  }
+}
+</script>
+
 
 <style scoped>
 .animate-bounce {
