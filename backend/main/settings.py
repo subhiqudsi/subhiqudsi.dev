@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ai_proxy',
     'corsheaders',
+    'rest_framework',
+    'rest_framework.authtoken',
 
 ]
 
@@ -132,3 +134,9 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOWED_ORIGINS = [
     os.getenv('CORS_ALLOWED')  # Or whatever your frontend URL is
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
