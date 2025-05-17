@@ -1,8 +1,12 @@
+import re
+
 import requests
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.http import HttpResponse
+from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.decorators.clickjacking import xframe_options_exempt
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -57,15 +61,17 @@ class UserCreateAPIView(generics.CreateAPIView):
     serializer_class = UserCreateSerializer
 
 
+@method_decorator(xframe_options_exempt, name='dispatch')
 class PageView(View):
     def get(self, request, *args, **kwargs):
         username = kwargs.get('username')
         page_name = kwargs.get('page')
         result = ''
-        result += getattr(Page.objects.filter(user__username=username, name='header').first(), 'html_content', '')
-        result += getattr(Page.objects.filter(user__username=username, name=page_name).first(), 'html_content', '')
-        result += getattr(Page.objects.filter(user__username=username, name='footer').first(), 'html_content', '')
-        return HttpResponse(result)
+        if page_name == 'css-demo':
+
+            css_demo = getattr(Page.objects.filter(user__username=username, name='css-demo').first(), 'html_content',
+                               '')
+            return HttpResponse(css_demo)
 
 
 class GenerateDraftView(APIView):
@@ -73,30 +79,82 @@ class GenerateDraftView(APIView):
 
     def generate_css(self, prompt):
         r = requests.post('http://host.docker.internal:11434/api/generate', json={
-            'prompt': '{ "style": "generate design system css for '+prompt+'"}',
+            'prompt': f'''Generate styles.css design system: "{prompt}" theme:
+Design system:
+- 6-tier color palette
+- card design
+- fields designs
+- Fluid typography using clamp()
+- CSS Grid layout utilities
+- Links design
+- Button & hover design
+- Mobile-first responsive approach
+- Transition presets
+- Include :root variables and .container styles
+''',
             "model": settings.MODEL_NAME,
             "stream": False
         })
         result = r.json()['response']
-        Page.objects.update_or_create( html_content=result, create_defaults={'name':'css-draft','user_id': self.request.user.id})
+        print(result)
+        html_match = re.search(r'```html(.*?)```', result, re.DOTALL).group(1).strip()
+        styles = ''
+        css_match = re.search(r'```css(.*?)```', result, re.DOTALL)
+        style_file_match = re.search(r'```styles.css(.*?)```', result, re.DOTALL)
+        if css_match:
+            styles = css_match.group(1).strip()
+        elif style_file_match:
+            styles = style_file_match.group(1).strip()
+        Page.objects.update_or_create(
+            user_id=self.request.user.id,
+            name='css-demo',
+            defaults={'html_content': html_match.replace('<head>', '<head><style>'+styles+'</style>')}
+        )
 
     def generate_draft_demo(self):
         css = Page.objects.get(name='css-draft', user_id=self.request.user.id).html_content
         r = requests.post('http://host.docker.internal:11434/api/generate', json={
-            'prompt': f'Output only raw html, create demo of design system {css}. Only raw Html content, dont talk.',
+            'prompt': f'''
+            Generate a standalone HTML file that demonstrates a CSS design system with the following:
+1. A centered container with max-width
+2. Typography examples (h1-h6, paragraph, captions)
+3. Color swatch grid showing primary/secondary/success/warning/error variants
+4. Button components in all states (default, hover, active, disabled)
+5. Form elements: input, textarea, select, checkbox
+6. Card component with header/content/footer
+7. Responsive grid layout with 3 columns on desktop
+8. Utility classes demo (margin/padding, shadow levels)
+9. Navigation bar with logo and links
+
+Requirements:
+- Use CSS variables from the design system
+- Include semantic HTML5 markup
+- Add ARIA labels for accessibility
+- Mobile-first responsive design
+- No external dependencies
+- Combine CSS in <style> tag
+- Include dummy content
+- Output only HTML code (no markdown)
+{css}
+            ''',
             "model": settings.MODEL_NAME,
             "stream": False
         })
         result = r.json()['response']
-        Page.objects.update_or_create( html_content=result, create_defaults={'name':'css-demo','user_id': self.request.user.id})
+        html_match = re.search(r'```html(.*?)```', result, re.DOTALL).group(1).strip()
+        Page.objects.update_or_create(
+            user_id=self.request.user.id,
+            name='css-demo',
+            defaults={'html_content': html_match}
+        )
 
     def post(self, request, *args, **kwargs):
         prompt = request.data.get('prompt')
         type = request.data.get('type')
         if type == 'style':
             self.generate_css(prompt)
-            self.generate_draft_demo()
+            # self.generate_draft_demo()
             return Response({
                 'response': 'Style generated successfully',
-                'previewUrl': f"{self.request.get_host()}/{self.request.user.username}/css-demo"
+                'previewUrl': f"{self.request._current_scheme_host}/{self.request.user.username}/css-demo"
             })

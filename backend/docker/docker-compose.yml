@@ -37,5 +37,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - MODEL_NAME=phi4:14b-q4_K_M
+      - MODEL_NAME=mistral
       - CORS_ALLOWED=http://localhost:3000
+    stdin_open: true  # Keep stdin open
+    tty: true         # Allocate pseudo-TTY

@@ -108,7 +108,7 @@
             <iframe
                 v-else-if="previewUrl"
                 :src="previewUrl"
-                class="w-full h-auto"
+                class="w-full h-full"
             />
             <div v-else class="text-center p-8">
               <Icon name="heroicons:photo" class="w-16 h-16 text-gray-300 mx-auto mb-3"/>
