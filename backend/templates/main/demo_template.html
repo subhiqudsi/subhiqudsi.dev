@@ -1,106 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Design System Demo</title>
-</head>
-<body>
-    <div class="container">
-        <h1 class="text-primary text-center">Welcome to Design System Demo</h1>
+{% include 'main/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-custom py-5">
 
-        <!-- Typography examples -->
-        <div>
-            <h1 class="text-center">H1 Heading</h1>
-            <h2 class="text-center">H2 Heading</h2>
-            <h3 class="text-center">H3 Heading</h3>
-            <h4 class="text-center">H4 Heading</h4>
-            <h5 class="text-center">H5 Heading</h5>
-            <h6 class="text-center">H6 Heading</h6>
-            <p class="mt-4 text-center">This is a paragraph.</p>
-            <!-- Add captions as required -->
+    <!-- Hero Section -->
+    <section class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-brand">✨ Create Your Shop Profile</h1>
+        <p class="lead">A beautiful online space for your brand, products, and personality.</p>
+        <div class="mt-4">
+            <a href="#" class="btn btn-primary me-2">Get Started</a>
+            <a href="#" class="btn btn-outline-secondary">Preview Example</a>
         </div>
+    </section>
 
-        <!-- Color swatch grid -->
-        <div class="grid grid-cols-5 gap-2 mt-8">
-            <div style="background-color: var(--primary);"></div>
-            <div style="background-color: var(--secondary);"></div>
-            <div style="background-color: var(--success);"></div>
-            <div style="background-color: var(--warning);"></div>
-            <div style="background-color: var(--error);"></div>
+    <!-- Profile Form Demo -->
+    <section class="mb-5">
+        <div class="card p-4">
+            <h4 class="mb-4 text-brand">🛍️ Basic Info</h4>
+            <form>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Shop Name</label>
+                        <input type="text" class="form-control" placeholder="e.g., Cozy Corner Crafts">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" placeholder="yourshop@email.com">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Category</label>
+                        <select class="form-select">
+                            <option selected disabled>Select one</option>
+                            <option>Clothing</option>
+                            <option>Home Decor</option>
+                            <option>Jewelry</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Instagram</label>
+                        <input type="text" class="form-control" placeholder="@yourhandle">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">About</label>
+                        <textarea class="form-control" rows="3" placeholder="Tell us what makes your shop special..."></textarea>
+                    </div>
+                </div>
+            </form>
         </div>
+    </section>
 
-        <!-- Button components -->
-        <button class="btn btn-primary mt-8">Default</button>
-        <button class="btn btn-primary btn-hover mt-2">Hover</button>
-        <button class="btn btn-primary btn-active mt-2">Active</button>
-        <button class="btn btn-primary btn-disabled mt-2">Disabled</button>
-
-        <!-- Form elements -->
-        <form class="mt-8">
-            <label for="inputExample" class="block text-gray-700 font-medium mb-2">Input Example:</label>
-            <input type="text" id="inputExample" class="border border-gray-300 bg-white hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg block w-full p-2.5 text-sm text-gray-900 shadow-sm dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-800">
-            <label for="textareaExample" class="block mt-3 text-gray-700 font-medium mb-2">Textarea Example:</label>
-            <textarea id="textareaExample" rows="4" class="border border-gray-300 bg-white hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg block w-full p-2.5 text-sm text-gray-900 shadow-sm dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-800"></textarea>
-            <!-- Add select, checkbox elements as required -->
-        </form>
-
-        <!-- Card component -->
-        <div class="card mt-8">
-            <header class="card-header">Card Header</header>
-            <div class="card-content">
-                <p>This is card content.</p>
-            </div>
-            <footer class="card-footer">Card Footer</footer>
-        </div>
-
-        <!-- Responsive grid layout -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8">
-            <!-- Add content columns here -->
-        </div>
-
-        <!-- Utility classes demo -->
-        <div class="mt-8">
-            <p class="mb-4 text-center">Margin examples:</p>
-            <div class="m-0"></div>
-            <div class="m-1"></div>
-            <div class="m-2"></div>
-            <div class="m-4"></div>
-            <div class="m-8"></div>
-            <p class="mb-4 text-center">Padding examples:</p>
-            <div class="p-0"></div>
-            <div class="p-1"></div>
-            <div class="p-2"></div>
-            <div class="p-4"></div>
-            <div class="p-8"></div>
-            <p class="mb-4 text-center">Shadow levels:</p>
-            <div class="shadow-none"></div>
-            <div class="shadow-sm"></div>
-            <div class="shadow"></div>
-        </div>
-
-        <!-- Navigation bar -->
-        <nav class="flex items-center justify-between flex-wrap bg-blue-500 p-6">
-            <div class="flex items-center flex-shrink-0 text-white mr-6">
-                <span class="font-semibold text-xl tracking-tight">Logo</span>
-            </div>
-            <div class="block lg:hidden">
-                <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
-                    <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v4H0V3zm0 6h20v4h-20z"/></svg>
-                </button>
-            </div>
-            <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-                <div class="text-sm lg:flex-grow">
-                    <!-- Add links here -->
+    <!-- Card Demos -->
+    <section class="mb-5">
+        <h4 class="text-brand mb-4">🖼️ Product/Service Cards</h4>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card p-3 text-center hover-shadow">
+                    <div class="mb-3" style="font-size: 3rem;">🧺</div>
+                    <h5>Handwoven Basket</h5>
+                    <p class="text-muted small">Eco-friendly & handmade</p>
+                    <button class="btn btn-primary btn-sm">View</button>
                 </div>
             </div>
-        </nav>
-    </div>
+            <div class="col-md-4">
+                <div class="card p-3 text-center hover-shadow">
+                    <div class="mb-3" style="font-size: 3rem;">🕯️</div>
+                    <h5>Aromatherapy Candle</h5>
+                    <p class="text-muted small">Relaxing lavender blend</p>
+                    <button class="btn btn-primary btn-sm">View</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3 text-center hover-shadow">
+                    <div class="mb-3" style="font-size: 3rem;">🎨</div>
+                    <h5>Custom Portrait</h5>
+                    <p class="text-muted small">Order your custom art</p>
+                    <button class="btn btn-primary btn-sm">View</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Transition presets -->
-    <style>
-        /* Add transition presets here */
-    </style>
-</body>
-</html>
+</div>
+
+<!-- Optional custom hover effect for cards -->
+<style>
+.hover-shadow {
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+.hover-shadow:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+</style>
+{% endblock %}
+

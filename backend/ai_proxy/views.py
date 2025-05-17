@@ -4,6 +4,7 @@ import requests
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.http import HttpResponse
+from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.clickjacking import xframe_options_exempt
@@ -68,10 +69,13 @@ class PageView(View):
         page_name = kwargs.get('page')
         result = ''
         if page_name == 'css-demo':
-
             css_demo = getattr(Page.objects.filter(user__username=username, name='css-demo').first(), 'html_content',
                                '')
-            return HttpResponse(css_demo)
+            result = render_to_string('main/demo_template.html', {'title': 'UI Demo'}).replace(
+                '<link rel="stylesheet" href="custom.css">',
+                f"<style>{css_demo}</style>"
+            )
+            return HttpResponse(result)
 
 
 class GenerateDraftView(APIView):
@@ -79,26 +83,12 @@ class GenerateDraftView(APIView):
 
     def generate_css(self, prompt):
         r = requests.post('http://host.docker.internal:11434/api/generate', json={
-            'prompt': f'''Generate styles.css design system: "{prompt}" theme:
-Design system:
-- 6-tier color palette
-- card design
-- fields designs
-- Fluid typography using clamp()
-- CSS Grid layout utilities
-- Links design
-- Button & hover design
-- Mobile-first responsive approach
-- Transition presets
-- Include :root variables and .container styles
-''',
+            'prompt': f'''write css IMPORTANT NOT SCSS ONLY CSS a complete bootstrap customization, bootstrap already imported, adjust all bootstrap colors, user:"{prompt}"''',
             "model": settings.MODEL_NAME,
             "stream": False
         })
         result = r.json()['response']
         print(result)
-        html_match = re.search(r'```html(.*?)```', result, re.DOTALL).group(1).strip()
-        styles = ''
         css_match = re.search(r'```css(.*?)```', result, re.DOTALL)
         style_file_match = re.search(r'```styles.css(.*?)```', result, re.DOTALL)
         if css_match:
@@ -108,7 +98,7 @@ Design system:
         Page.objects.update_or_create(
             user_id=self.request.user.id,
             name='css-demo',
-            defaults={'html_content': html_match.replace('<head>', '<head><style>'+styles+'</style>')}
+            defaults={'html_content': styles}
         )
 
 

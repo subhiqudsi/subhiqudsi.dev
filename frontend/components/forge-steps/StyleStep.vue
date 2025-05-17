@@ -42,22 +42,16 @@
         <button
             @click="generatePreview"
             class="px-5 py-2 border border-cyan-500/30 bg-cyan-500/10 text-white rounded-xl hover:bg-cyan-500/20 flex items-center mr-3"
+            :disabled="previewLoading"
         >
-          <Icon name="heroicons:eye" class="w-5 h-5 mr-2"/>
-          Preview
+          <div v-if="previewLoading" class="inline-block animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-cyan-500 mr-2"></div>
+           <Icon name="heroicons:sparkles" class="w-5 h-5 mr-2"/>
+          {{ previewLoading ? 'Loading...' : 'Preview' }}
         </button>
       </div>
       <div class="flex">
         <button
-            @click="saveDraft"
-            class="px-5 py-2 border border-cyan-500/30 bg-gray-700/50 text-white rounded-xl hover:bg-gray-700/70 flex items-center mr-3"
-        >
-          <Icon name="heroicons:sparkles" class="w-5 h-5 mr-2"/>
-          Save
-        </button>
-        <button
             v-if="false"
-            @click="$emit('next-step')"
             class="px-5 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl hover:from-cyan-600 hover:to-blue-700 flex items-center"
         >
           Continue
@@ -110,6 +104,16 @@
                 :src="previewUrl"
                 class="w-full h-full"
             />
+            <div v-else-if="previewError" class="text-center p-8">
+              <Icon name="heroicons:exclamation-circle" class="w-16 h-16 text-red-500 mx-auto mb-3"/>
+              <p class="text-gray-800 mb-3">We encountered an error generating your preview.</p>
+              <button
+                @click="generatePreview(true)"
+                class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg hover:from-cyan-600 hover:to-blue-700"
+              >
+                Try Again
+              </button>
+            </div>
             <div v-else class="text-center p-8">
               <Icon name="heroicons:photo" class="w-16 h-16 text-gray-300 mx-auto mb-3"/>
               <p class="text-gray-500">Style preview will be generated here</p>
@@ -138,14 +142,24 @@
           >
             Close
           </button>
-          <button
-              class="px-5 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl hover:from-cyan-600 hover:to-blue-700 flex items-center"
-              @click="downloadPreview"
-              :disabled="true"
-          >
-            <Icon name="heroicons:arrow-down-tray" class="w-5 h-5 mr-2"/>
-            Download Preview
-          </button>
+          <div class="flex space-x-3">
+            <button
+                v-if="previewUrl && !previewLoading"
+                class="px-5 py-2 border border-cyan-500/30 bg-gray-700/50 text-white rounded-xl hover:bg-gray-700/70 flex items-center"
+                @click="generatePreview(true)"
+            >
+              <Icon name="heroicons:arrow-path" class="w-5 h-5 mr-2"/>
+              Regenerate
+            </button>
+            <button
+                class="px-5 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl hover:from-cyan-600 hover:to-blue-700 flex items-center"
+                @click="saveDraft"
+                :disabled="!previewUrl"
+            >
+              <Icon name="heroicons:arrow-down-tray" class="w-5 h-5 mr-2"/>
+              Save
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -197,6 +211,8 @@ export default {
       showPreviewModal: false,
       previewLoading: false,
       showGeneratingNotification: false,
+      previewError: false,
+      generationSuccess: false,
     };
   },
   watch: {
@@ -217,7 +233,7 @@ export default {
   },
   methods: {
     openPreviewModal() {
-      this.generatePreview();
+      // Just open the modal - used when we already have a preview URL
       this.showPreviewModal = true;
     },
 
@@ -225,8 +241,16 @@ export default {
       this.showPreviewModal = false;
     },
 
-    generatePreview() {
+    generatePreview(regenerate = false) {
       this.previewLoading = true;
+      this.previewError = false;
+      this.showPreviewModal = true; // Show modal immediately to display loading spinner
+      
+      // Clear existing preview if regenerating
+      if (regenerate) {
+        this.previewUrl = '';
+      }
+      
       const body = {
         type: 'style',
         prompt: `${this.styleOptions[this.selectedStyle].name} ${this.styleDescription}`
@@ -246,41 +270,75 @@ export default {
             .then(response => {
               if (!response.ok) {
                 return response.json().then(data => {
-                  throw new Error(data.message || 'Login failed');
+                  throw new Error(data.message || 'Generation failed');
                 });
               }
               return response.json();
             })
             .then(data => {
-              this.previewUrl = data.previewUrl
-              this.showPreviewModal = true;
-
+              this.previewUrl = data.previewUrl;
+              this.generationSuccess = true;
+            })
+            .catch(error => {
+              console.error('Error generating preview:', error);
+              this.previewError = true;
             })
             .finally(() => {
               this.previewLoading = false;
             });
       } catch (error) {
+        console.error('Error in fetch operation:', error);
         this.previewLoading = false;
+        this.previewError = true;
       }
     },
 
-    saveDraft() {
-      // First simulate generating content
+    saveDraft(regenerate = false) {
       this.showGeneratingNotification = true;
-
-      setTimeout(() => {
-        this.showGeneratingNotification = false;
-        // Then show the preview
-        this.openPreviewModal();
-      }, 1500);
-    },
-
-    downloadPreview() {
-      if (this.previewInfo.imageUrl) {
-        // In a real app, this would trigger a download of the preview
-        alert('Style preview download started');
+      this.previewError = false;
+      
+      // Clear existing preview if regenerating
+      if (regenerate) {
+        this.previewUrl = '';
       }
-    }
+
+      const token = sessionStorage.getItem('token')
+
+      try {
+        fetch(useRuntimeConfig().public.backendUrl + '/save-style', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`
+          },
+        })
+            .then(response => {
+              if (!response.ok) {
+                return response.json().then(data => {
+                  throw new Error(data.message || 'Save failed');
+                });
+              }
+              return response.json();
+            })
+            .then(data => {
+              this.showPreviewModal = false;
+              this.$emit('next-step')
+            })
+            .catch(error => {
+              console.error('Error saving draft:', error);
+              this.previewError = true;
+              this.openPreviewModal(); // Open modal even on error to show error message
+            })
+            .finally(() => {
+              this.showGeneratingNotification = false;
+            });
+      } catch (error) {
+        console.error('Error in fetch operation:', error);
+        this.showGeneratingNotification = false;
+        this.previewError = true;
+        this.openPreviewModal(); // Open modal even on error to show error message
+      }
+    },
   }
 }
 </script>
