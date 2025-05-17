@@ -37,5 +37,5 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - MODEL_NAME=tinyllama
+      - MODEL_NAME=phi4:14b-q4_K_M
       - CORS_ALLOWED=http://localhost:3000

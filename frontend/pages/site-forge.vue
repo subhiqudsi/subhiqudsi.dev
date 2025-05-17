@@ -104,8 +104,8 @@
           </div>
         </ScrollAnimation>
 
-        <!-- Chat Interface -->
-        <ChatInterface />
+        <!-- ForgeStepsMain -->
+        <ForgeStepsMain />
 
         <!-- Features Section -->
         <ScrollAnimation direction="up" :delay="300">
@@ -168,11 +168,11 @@
 <script>
 import {nextTick} from 'vue'
 import LoginRegisterModal from "~/components/LoginRegisterModal.vue";
-import ChatInterface from "~/components/ChatInterface.vue";
+import ForgeStepsMain from "~/components/ForgeStepsMain.vue";
 
 export default {
   name: 'SiteForgePage',
-  components: {ChatInterface, LoginRegisterModal},
+  components: {ChatInterface: ForgeStepsMain, LoginRegisterModal},
 
   data() {
     return {
@@ -245,9 +245,6 @@ export default {
     })
   },
   mounted() {
-    console.log('triggered')
-    console.log(sessionStorage.getItem('token') !== undefined)
-    console.log(sessionStorage.getItem('token'))
     this.isAuthenticated = sessionStorage.getItem('token') !== 'undefined';
   },
 
